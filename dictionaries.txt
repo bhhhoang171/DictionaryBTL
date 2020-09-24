@@ -1,0 +1,2 @@
+hi : xin chao
+people : con nguoi
