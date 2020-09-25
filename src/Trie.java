@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Trie {
-    private Trie[] childen = new Trie[30];
+    private Trie[] childen = new Trie[32];
     private Word word;
 
     public void setWord(Word _word) {
@@ -20,10 +20,22 @@ public class Trie {
             return;
         }
         for (int i = 0; i < target.length(); i++) {
-            if (target.charAt(i) == ' ') {
-                k = 'z' - 'a' + 1;
-            } else {
-                k = (int) (target.charAt(i) - 'a');
+            switch (target.charAt(i)) {
+                case ' ':
+                    k = 'z' - 'a' + 1;
+                    break;
+                case '-':
+                    k = 'z' - 'a' + 2;
+                    break;
+                case '.':
+                    k = 'z' - 'a' +  3;
+                    break;
+                case '\'':
+                    k = 'z' - 'a' + 4;
+                    break;
+                default:
+                    k = (int) target.charAt(i) - 'a';
+                    break;
             }
             if (p.childen[k] == null) {
                 p.childen[k] = new Trie();
@@ -40,10 +52,22 @@ public class Trie {
         Trie p = this;
         int k;
         for (int i = 0; i < target.length(); ++i) {
-            if (target.charAt(i) == ' ') {
-                k = 'z' - 'a' + 1;
-            } else {
-                k = (int) (target.charAt(i) - 'a');
+            switch (target.charAt(i)) {
+                case ' ':
+                    k = 'z' - 'a' + 1;
+                    break;
+                case '-':
+                    k = 'z' - 'a' + 2;
+                    break;
+                case '.':
+                    k = 'z' - 'a' +  3;
+                    break;
+                case '\'':
+                    k = 'z' - 'a' + 4;
+                    break;
+                default:
+                    k = (int) target.charAt(i) - 'a';
+                    break;
             }
             if (p.childen[k] == null) {
                 return null;
@@ -60,10 +84,22 @@ public class Trie {
         Trie p = this;
         int k;
         for (int i = 0; i < target.length(); ++i) {
-            if (target.charAt(i) == ' ') {
-                k = 'z' - 'a' + 1;
-            } else {
-                k = (int) (target.charAt(i) - 'a');
+            switch (target.charAt(i)) {
+                case ' ':
+                    k = 'z' - 'a' + 1;
+                    break;
+                case '-':
+                    k = 'z' - 'a' + 2;
+                    break;
+                case '.':
+                    k = 'z' - 'a' +  3;
+                    break;
+                case '\'':
+                    k = 'z' - 'a' + 4;
+                    break;
+                default:
+                    k = (int) target.charAt(i) - 'a';
+                    break;
             }
             if (p.childen[k] == null) {
                 return;
@@ -80,40 +116,27 @@ public class Trie {
     }
 
     private void listed(Trie T, ArrayList<Word> listOfWord) {
-        if (T.word != null)
+        if (T.word != null) {
             listOfWord.add(T.word);
+        }
         for (int i = 0; i < 30; ++i) {
-            if (T.childen[i] != null)
+            if (T.childen[i] != null) {
                 listed(T.childen[i], listOfWord);
+            }
         }
     }
 
     private boolean checkWordInput(String input) {
-        input = fixWordInput(input);
+        input = input.trim();
         for (int i = 0; i < input.length(); ++i) {
-            if (input.charAt(i) < 'a' || input.charAt(i) > 'z') {
-                if (input.charAt(i) != ' ') {
+            char a = input.charAt(i);
+            if (a < 'a' || a > 'z') {
+                if (a != ' ' && a != '.' && a != '-' && a != '\'') {
                     System.out.println("Please insert a word");
                     return false;
                 }
             }
         }
         return true;
-    }
-
-    private String fixWordInput(String input) {
-        for (int i = 0; i < input.length(); ++i) {
-            if (input.charAt(i) != ' ') {
-                input = input.substring(i, input.length() - i);
-                break;
-            }
-        }
-        for (int i = input.length() - 1; i >= 0; --i) {
-            if (input.charAt(i) != ' ') {
-                input = input.substring(0, i + 1);
-                break;
-            }
-        }
-        return input;
     }
 }

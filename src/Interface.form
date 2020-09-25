@@ -37,7 +37,7 @@
           <font name="JetBrains Mono" size="20"/>
           <model/>
           <selectionBackground color="-15238225"/>
-          <selectionForeground color="-15238225"/>
+          <selectionForeground color="-5303768"/>
         </properties>
       </component>
       <component id="78fd5" class="javax.swing.JTextArea" binding="Definition">
