@@ -43,10 +43,10 @@ public class Interface extends JFrame {
             }
         });
         DM.insertFromFile(dict);
-        /*SearchingBox.addMouseListener(new MouseListener() {
+        SearchingBox.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SearchingBox.setText("");
+                //SearchingBox.setText("");
             }
 
             @Override
@@ -68,7 +68,7 @@ public class Interface extends JFrame {
                 SearchingBox.setText(" ");
 
             }
-        }); */
+        });
         SearchingBox.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
