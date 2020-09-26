@@ -6,6 +6,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.html.Option;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ public class DictionaryApplication extends JFrame {
     private JLabel Search;
     private JLabel Result;
     private JLabel WordsExplain;
+    private JPanel main;
     private JButton Export;
     private JButton Show;
     private DefaultListModel model;
@@ -29,9 +31,9 @@ public class DictionaryApplication extends JFrame {
     DictionaryApplication() {
         super("Dictionary");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.pack();
         this.setLayout(null);
-        this.setSize(1200,900);
+        this.setPreferredSize(new Dimension(1200,900));
+        //this.pack();
         DM.insertFromFile(dictionary);
         this.setVisible(true);
     }
@@ -202,7 +204,10 @@ public class DictionaryApplication extends JFrame {
                 optionMenu.show(OptionButton, e.getX(), e.getY());
             }
         });
+
         this.add(OptionButton);
+        this.pack();
+
     }
 
     void creatShowButton() {
@@ -239,12 +244,13 @@ public class DictionaryApplication extends JFrame {
     }
 
     void runApplication() {
-        this.creatExportButton();
-        this.creatShowButton();
-        this.creatOptionButton();
+
         this.creatSearchingBox();
         this.creatSeachingResults();
         this.creatDefinition();
+        this.creatExportButton();
+        this.creatShowButton();
+        this.creatOptionButton();
     }
 
     public static void main(String[] args) {
