@@ -39,10 +39,12 @@ public class DictionaryManagement {
             String target;
             String  explain;
             Trie TrieWord = Dic.getTrieWord();
-            String[] split = sc.nextLine().split(" : ");
-            target = split[0];
-            explain = split[1];
-            TrieWord.add(new Word(target, explain));
+            while (sc.hasNext()) {
+                String[] split = sc.nextLine().split(" : ");
+                target = split[0];
+                explain = split[1];
+                TrieWord.add(new Word(target, explain));
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

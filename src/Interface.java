@@ -1,109 +1,99 @@
+import jaco.mp3.a.D;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableRowSorter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class Interface extends JFrame {
-    private JList SearchingResult;
-    private JTextArea Definition;
-    private JPanel Title;
-    private JTextField SearchingBox;
-    private JPanel MainPanel;
-    private JLabel Dictionary;
-    private JTextField Searchingfor;
-    private Dictionary dict = new Dictionary();
+    private Dictionary dictionary = new Dictionary();
     private DictionaryManagement DM = new DictionaryManagement();
-    private DictionaryCommandline DC = new DictionaryCommandline();
-    private DefaultListModel Defaultmodel = new DefaultListModel();
-
+    private JTextField SearchingBox;
+    private JList SearchingResults;
+    private JScrollPane scroll;
+    private JTextArea Definition;
+    private JScrollPane scroll1;
+    private DefaultListModel model;
     Interface() {
-        super("Basic Dictionary");
-        this.setContentPane(this.MainPanel);
+        super("Dictionary");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
-        // DC.dictionaryAdvanced(dict);
-        SearchingResult.setModel(Defaultmodel);
-        SearchingResult.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int WordIndex = SearchingResult.getSelectedIndex();
-                if (WordIndex >= 0) {
-                    Word w = dict.getListOfWord().get(WordIndex);
-                    Definition.setText(w.getWord_explain());
-
-                }
-
-            }
-        });
-        DM.insertFromFile(dict);
-        /*SearchingBox.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                SearchingBox.setText("");
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                SearchingBox.setText(" ");
-
-            }
-        }); */
+        //this.pack();
+        this.setLayout(null);
+        this.setSize(1200,900);
+        DM.insertFromFile(dictionary);
+        this.setVisible(true);
+    }
+    void creatSearchingBox() {
+        SearchingBox = new JTextField();
+        SearchingBox.setBounds(0,20,450,50);
+        SearchingBox.setFont(new java.awt.Font("Times New Roman",0,20));
+        this.add(SearchingBox);
+    }
+    void creatSeachingResults() {
+        SearchingResults = new JList();
+        model = new DefaultListModel();
+        SearchingResults.setFont(new java.awt.Font("Times New Roman",0,20));
+        SearchingResults.setModel(model);
         SearchingBox.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                warn();
+                update();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                warn();
+                update();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                warn();
+                update();
 
             }
 
-            public void warn() {
-                Searchingfor.setText("Searching for: " + SearchingBox.getText());
-                Defaultmodel.removeAllElements();
+            public void update() {
+                model.removeAllElements();
                 String find_word = SearchingBox.getText();
-                Trie T = dict.getTrieWord().find(find_word);
+                Trie T = dictionary.getTrieWord().find(find_word);
                 if (T != null) {
                     ArrayList<Word> find_words = T.getListOfWord();
                     for (Word w : find_words)
-                        Defaultmodel.addElement(w.getWord_target());
+                        model.addElement(w.getWord_target());
                 }
             }
         });
+        scroll = new JScrollPane(SearchingResults);
+        scroll.setBounds(0,100,450,720);
+        this.add(scroll);
 
     }
+    void creatDefinition() {
+        Definition = new JTextArea();
+        Definition.setFont(new java.awt.Font("Times New Roman",0,20));
+        SearchingResults.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selected_index = SearchingResults.getSelectedIndex();
+                Trie T = dictionary.getTrieWord().find(SearchingBox.getText());
+                if (T != null && selected_index >= 0) {
+                    ArrayList<Word> find_words = T.getListOfWord();
+                    Word selected_word = find_words.get(selected_index);
+                    Definition.setText(selected_word.getWord_explain());
+                }
 
-    public static void main(String[] args) {
-        Interface intf = new Interface();
-        intf.setSize(800, 800);
-        intf.setVisible(true);
+            }
+        });
+        scroll1 = new JScrollPane(Definition);
+        scroll1.setBounds(500,100,670,720);
+        this.add(scroll1);
+    }
+    public static void main(String []args) {
+
+        Interface inf = new Interface();
+        inf.creatSearchingBox();
+        inf.creatSeachingResults();
+        inf.creatDefinition();
     }
 }
