@@ -33,16 +33,23 @@ public class DictionaryManagement {
         }
     }
 
+    public void insertFromCommandline(Dictionary Dic, String target, String explain) {
+        Trie TrieWord = Dic.getTrieWord();
+        target = target.toLowerCase();
+        explain = explain.toLowerCase();
+        TrieWord.add(new Word(target, explain));
+    }
+
     public void insertFromFile(Dictionary Dic) {
         try {
             Scanner sc = new Scanner(new File("dictionaries.txt"));
             String target;
             String  explain;
             Trie TrieWord = Dic.getTrieWord();
-            while(sc.hasNextLine()) {
+            while (sc.hasNext()) {
                 String[] split = sc.nextLine().split(" : ");
-                target = split[0].toLowerCase();
-                explain = split[1].toLowerCase();
+                target = split[0];
+                explain = split[1];
                 TrieWord.add(new Word(target, explain));
             }
         } catch (FileNotFoundException e) {
@@ -70,12 +77,25 @@ public class DictionaryManagement {
         T.delete(WordDelete);
     }
 
+    public void deleteWord(Dictionary Dic, String WordDelete) {
+        Trie T = Dic.getTrieWord();
+        T.delete(WordDelete);
+    }
+
     public void changeWord(Dictionary Dic) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Please enter the word which you want to change : ");
         String WordChange = sc.nextLine();
         System.out.print("Explain : ");
         String ExplainChange = sc.nextLine();
+        Trie T = Dic.getTrieWord().find(WordChange);
+        if (T == null)
+            System.out.println("The word is not found!");
+        else
+            T.getWord().setWord_explain(ExplainChange);
+    }
+
+    public void changeWord(Dictionary Dic, String WordChange, String ExplainChange) {
         Trie T = Dic.getTrieWord().find(WordChange);
         if (T == null)
             System.out.println("The word is not found!");
