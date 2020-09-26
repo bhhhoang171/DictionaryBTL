@@ -1,5 +1,3 @@
-import jaco.mp3.a.D;
-
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -7,7 +5,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.util.ArrayList;
 
-public class Interface extends JFrame {
+public class DictionaryApplication extends JFrame {
     private Dictionary dictionary = new Dictionary();
     private DictionaryManagement DM = new DictionaryManagement();
     private JTextField SearchingBox;
@@ -16,7 +14,7 @@ public class Interface extends JFrame {
     private JTextArea Definition;
     private JScrollPane scroll1;
     private DefaultListModel model;
-    Interface() {
+    DictionaryApplication() {
         super("Dictionary");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //this.pack();
@@ -89,11 +87,15 @@ public class Interface extends JFrame {
         scroll1.setBounds(500,100,670,720);
         this.add(scroll1);
     }
+    void runApplication() {
+        this.creatSearchingBox();
+        this.creatSeachingResults();
+        this.creatDefinition();
+    }
+
     public static void main(String []args) {
 
-        Interface inf = new Interface();
-        inf.creatSearchingBox();
-        inf.creatSeachingResults();
-        inf.creatDefinition();
+        DictionaryApplication basic_interface = new DictionaryApplication();
+        basic_interface.runApplication();
     }
 }
