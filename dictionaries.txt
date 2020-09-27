@@ -95,10 +95,10 @@ alcohol : rượu cồn
 alcoholic : rượu; người nghiện rượu
 alive : sống, vẫn còn sống, còn tồn tại
 all : tất cả
-all right : tốt, ổn, khỏe mạnh;  được
 allied : liên minh,  đồng minh,  thông gia
 allow : cho phép, để cho
 ally : nước đồng minh, liên minh; liên kết, kết thông gia
+all right : tốt, ổn, khỏe mạnh;  được
 almost : hầu như,  gần như
 alone : cô đơn, một mình
 along : dọc theo, theo; theo chiều dài, suốt theo
@@ -155,8 +155,8 @@ anything : việc gì, vật gì; bất cứ việc gì, vật gì
 anyway : thế nào cũng được, dù sấo chăng nữa
 anywhere : bất cứ chỗ nào, bất cứ nơi đâu
 apart : về một bên, qua một bên
-apart from : ngoài ra
 apartment : căn phòng,  căn buồng
+apart from : ngoài ra
 apologize : xin lỗi, tạ lỗi
 apparent : rõ ràng, rành mạch; bề ngoài, có vẻ
 apparently : nhìn  bên ngoài, hình  như
@@ -176,7 +176,6 @@ approve : tán thành,  đồng ý, chấp thuận
 approving : tán thành,  đồng ý, chấp thuận
 approximate : giống với, giống hệt với
 approximately : khoảng  chừng, độ chừng
-April : tháng Tư
 area : diện tích,  bề mặt
 argue : chứng tỏ, chỉ rõ
 argument : lý lẽ
@@ -199,7 +198,6 @@ artificially : nhân tạo
 artist : nghệ sĩ
 artistic : thuộc  nghệ thuật,  thuộc  mỹ thuật
 as : như  (as you know…)
-as well : cũng,  cũng như
 ashamed : ngượng, xấu hổ
 aside : về một bên, sang một bên. aside from: ngoài ra, trư ra
 ask : hỏi
@@ -212,6 +210,7 @@ associate : kết giao, liên kết, kết hợp, cho cộng tác. associated wi
 association : sự kết hợp, sự liên kết
 assume : mang, khoác, có, lấy (cái vẻ, tính chất…)
 assure : đảm bảo, cấm đoán
+as well : cũng,  cũng như
 atmosphere : khí quyển
 atom : nguyên tử
 attach : gắn, dán, trói, buộc
@@ -227,7 +226,6 @@ attract : hút;  thu hút,  hấp dẫn
 attraction : sự hút,  sức hút
 attractive : hút,  thu hút,  có duyên,  lôi cuốn
 audience : thính,  khan giả
-August : tháng Tám
 aunt : cô, dì
 author : tác giả
 authority : uy quyền,  quyền lực
@@ -245,6 +243,7 @@ awful : oai nghiêm, dễ sợ
 awfully : tàn khốc, khủng khiếp
 awkward : vụng  về, lung  túng
 awkwardly : vụng  về, lung  túng
+a lot : số lượng lớn; rất nhiều
 back : lưng, sau, về phía  sau, trở  lại
 background : phía  sau; nền
 backward : về phía  sau, lùi lại
@@ -273,7 +272,6 @@ bath : sự tắm
 bathroom : buồng tắm, nhà  vệ sinh
 battle : trận đánh,  chiến thuật
 bay : gian (nhà), nhịp (cầu), chuồng (ngựa); bays: vòng nguyệt quế, vịnh
-be sick : bị ốm
 beach : bãi biển
 beak : mỏ chim
 bear : mang, cầm, vác, đeo, ôm
@@ -291,7 +289,6 @@ beer : rượu bia
 before : trước, đằng trước
 begin : bắt đầu, khởi đầu
 beginning : phần đầu, lúc bắt đầu, lúc khởi đầu
-behalf : sự thay mặt. on behalf of sb thay mặt cho ai, nhân  danh ai
 behalf : nhân  danh cá nhân ai
 behave : đối xử, ăn ở, cư xử
 behaviour : thái độ, cách đối xử; cách cư xử, cách ăn ở; tư cách đạo đức
@@ -307,12 +304,13 @@ beneath : ở dưới, dưới thấp
 benefit : lợi, lợi ích;  giúp ích,  làm lợi cho
 bent : khiếu, sở thích,  khuynh  hướng
 beside : bên cạnh,  so với
+best : tốt nhất
 bet : đánh cuộc, cá cược; sự đánh cuộc
 better : tốt hơn
-best : tốt nhất
 betting : sự đánh cuộc
 between : giữa, ở giữa
 beyond : ở xa, phía  bên kia
+be sick : bị ốm
 bicycle : xe đạp
 bid : đặt giá, trả giá; sự đặt giá, sự trả giá
 big : to, lớn
@@ -453,7 +451,6 @@ cat : con mèo
 catch : bắt lấy, nắm lấy, tóm lấy, chộp  lấy
 category : hạng, loại; phạm trù
 cause : nguyên nhân, nguyên do; gây  ra, gây nên
-CD : đĩa CD
 cease : dừng, ngưng,  ngớt, thôi, hết, tạnh
 ceiling : trần nhà
 celebrate : kỷ niệm, làm lễ kỷ niệm; tán sự kỷ niệm, lễ kỷ niệm; sự tán
@@ -461,8 +458,8 @@ celebration : dương, sự ca tụng
 cell : ô, ngăn
 cellphone : điện thoại di động
 cent : đồng xu (bằng 1/100 đô la)
-centimetre : xen ti mét
 centimeter : xen ti met
+centimetre : xen ti mét
 central : trung  tâm, ở giữa, trung ương
 centre : điểm giữa, trung  tâm, trung ương
 century : thế kỷ
@@ -496,8 +493,8 @@ cheerfully : vui  vẻ, phấn khởi
 cheese : pho mát
 chemical : thuộc hóa học; chất hóa học, hóa chất
 chemist : nhà  hóa học
-chemist's : nhà  hóa học
 chemistry : hóa học, môn hóa học, ngành hóa học
+chemist's : nhà  hóa học
 cheque : séc
 chest : tủ, rương, hòm
 chew : nhai, ngẫm nghĩ
@@ -764,7 +761,6 @@ debate : cuộc tranh luận, cuộc tranh cãi; tranh luận,  bàn cãi
 debt : nợ
 decade : thập  kỷ, bộ mười, nhóm mười
 decay : tình trạng suy tàn, suy sụp, tình trạng  đổ nát
-December : tháng  mười hai, tháng Chạp
 decide : quyết  định, giải quyết,  phân xử
 decision : sự quyết định, sự giải quyết, sự phân xử
 declare : tuyên  bố, công bố
@@ -908,11 +904,8 @@ dump : đổ rác; đống rác, nơi đổ rác
 during : trong  lúc, trong  thời gian
 dust : bụi, rác; rắc (bụi, phấn), quét bụi, phủi bụi
 duty : sự tôn kính, kính trọng; bồn phận, trách nhiệm
-DVD : đĩa DVD
 dying : sự chết
-e.g. : Viết tắt của cụm tư La tinh exempl gratia (for example)
 each : mỗi
-each other : nhau,  lẫn nhau
 each other : nhau,  lẫn nhau
 ear : tai
 early : sớm
@@ -1027,13 +1020,12 @@ event : sự việc, sự kiện
 eventually : cuối cùng
 ever : từng, từ trước tới giờ
 every : mỗi, mọi
-everyone : mọi người
 everybody : mọi người
+everyone : mọi người
 everything : mọi vật, mọi thứ
 everywhere : mọi nơi
 evidence : điều hiển nhiên,  điều rõ ràng
 evil : xấu, ác; điều xấu, điều ác, điều tai hại
-ex- : tiền tố chỉ bên ngoài
 exact : chính  xác, đúng
 exactly : chính  xác, đúng đắn
 exaggerate : cường điệu, phóng đại
@@ -1087,7 +1079,9 @@ extra : thêm, phụ,  ngoại; thứ  thêm, phụ
 extraordinary : đặc biệt, lạ thường, khác thường
 extreme : vô cùng, khắc nghiệt, quá khích, cực đoan; sự quá khích
 extremely : vô cùng,  cực độ
+ex- : tiền tố chỉ bên ngoài
 eye : mắt
+e.g. : Viết tắt của cụm tư La tinh exempl gratia (for example)
 face : mặt, thể diện; đương đầu, đối phó đối mặt
 facility : điều kiện dễ dàng, sự dễ dàng, thuận lợi
 fact : việc, sự việc, sự kiện
@@ -1103,7 +1097,6 @@ faith : sự tin tưởng, tin cậy; niềm tin, vật đảm bảo
 faithful : trung thành, chung thủy, trung thực
 faithfully : trung thành, chung thủy, trung thực. yours faithfully bạn chân thành
 fall : rơi, ngã, sự rơi, ngã. fall over ngã lộn nhào, bị đổ
-FALSE : sai, nhầm,  giả dối
 fame : tên tuổi, danh tiếng
 familiar : thân thiết, quen  thộc
 family : gia đình,  thuộc  gia đình
@@ -1127,13 +1120,12 @@ favourite : được ưa thích; người (vật) được ưa thích
 fear : sự sợ hãi, e sợ; sợ, lo ngại
 feather : lông chim
 feature : nét đặt biệt, điểm đặc trưng; mô t nét đặc biệt, đặc trưng của…
-February : tháng 2
 federal : liên bang
 fee : tiền thù lao, học phí
 feed : cho ăn, nuôi
 feel : cảm thấy
-feel sick : buồn nôn
 feeling : sự cảm thấy,  cảm giác
+feel sick : buồn nôn
 fellow : anh chàng  (đáng yêu),  đồng chí
 female : thuộc  giống cái; giống cái
 fence : hàng rào
@@ -1207,7 +1199,6 @@ former : trước, cũ, xưa, nguyên
 formerly : trước đây, thuở xưa
 formula : công thức, thể  thức, cách thức
 fortune : sự giàu có, sự thịnh vượng
-forward : ở phía  trước, tiến về phía trước
 forward : về tương lai, sau này ở phía trước, tiến về  phía trước
 found : tìm,  tìm thấy
 foundation : sự thành  lập, sự sáng lập; tổ chứ
@@ -1220,7 +1211,6 @@ frequent : thường xuyên
 frequently : thường xuyên
 fresh : tươi, tươi tắn
 freshly : tươi mát, khỏe khoắn
-Friday : thứ Sáu
 fridge : tủ lạnh
 friend : người bạn
 friendly : thân thiện, thân  mật
@@ -1291,7 +1281,6 @@ goal : mục đích,  bàn thắng,  khung thành
 god : thần, Chúa
 gold : vàng;  bằng vàng
 good : tốt, hay, tuyệt; điều tốt, điều thiện. good at: tiến bộ ở. good for: có lợi cho
-well : tốt, khỏe
 goodbye : tạm biệt; lời chào tạm biệt
 goods : của cải, tài sản, hàng  hóa
 govern : cai trị, thống  trị, cầm quyền
@@ -1302,7 +1291,6 @@ grade : điểm, điểm số; phân loại, xếp loại
 gradual : dần dần, tưng bước một
 gradually : dần dần, tư tư
 grain : thóc lúa, hạt, hột; tính chất, bản chất
-gram : đậu xanh
 gram : ngữ pháp
 grammar : văn phạm
 grand : rộng lớn, vĩ  đại
@@ -1316,12 +1304,11 @@ grant : cho, bán, cấp; sự cho, sự bán, sự cấp
 grass : cỏ; bãi cỏ, đồng cỏ
 grateful : biết ơn, dễ chịu, khoan khoái
 grave : mộ, dấu huyền; trang nghiêm, nghiêm trọng
-gray : xám, hoa râm (tóc)
+gray : màu xám
 great : to, lớn, vĩ đại
 greatly : rất, lắm; cao thượng, cao cả
 green : xanh  lá cây
 grey : xám, hoa râm (tóc)
-gray : màu xám
 groceries : hàng tạp hóa
 grocery : cửa hàng  tạp phẩm
 ground : mặt đất, đất, bãi đất
@@ -1438,7 +1425,6 @@ hunting : sự đi săn
 hurry : sự vội vàng, sự gấp rút. in a hurry: vội vàng,  hối hả, gấp rút
 hurt : làm bị thương, gây thiệt hại
 husband : người chồng
-i.e. : nghĩa  là, tức là ( Id est)
 ice : băng, nước đá
 ice cream : kem
 idea : ý tưởng, quan niệm
@@ -1476,10 +1462,6 @@ impressed : được ghi, khắc, in sâu vào
 improve : cải thiện,  cái tiến, mở mang
 improvement : sự cải thiện, sự cải tiến, sự mở mang
 in : ở, tại, trong; vào
-in addition : thêm vào
-in case of : nếu......
-in control of : trong sự điều khiển của. under control dưới sự điều khiển của
-in exchange for : trong  việc trao đổi về
 inability : sự bất lực, bất tài
 inch : insơ (đơn vị đo chiều dài Anh bằng 2, 54 cm)
 incident : việc xảy ra, việc có liên quan
@@ -1567,6 +1549,10 @@ invitation : lời mời, sự mời
 invite : mời
 involve : bao gồm, bao hàm; thu hút, dồn tâm trí. involved in để hết tâm trí vào
 involvement : sự gồm, sự bao hàm; sự để, dồn hết tâm trí vào
+in addition : thêm vào
+in case of : nếu......
+in control of : trong sự điều khiển của. under control dưới sự điều khiển của
+in exchange for : trong  việc trao đổi về
 iron : sắt; bọc sắt
 irritate : làm phát cáu, chọc tức
 irritated : tức giận, cáu tiết
@@ -1577,9 +1563,9 @@ it : cái đó, điều đó, con vật đó
 item : tin tức; khoả(n).,  mó(n)..,  tiết mục
 its : của cái đó, của điều đó, của con vật đó; cái của điều đó, cái của con vật đó
 itself : chính cái đó, chính điều đó, chính con vật đó
+i.e. : nghĩa  là, tức là ( Id est)
 jacket : áo vét
 jam : mứt, sự mắc kẹt, sự kẹt (máy...)
-January : tháng giêng
 jealous : ghen,,  ghen tị
 jeans : quần bò, quần zin
 jelly : thạch
@@ -1595,9 +1581,7 @@ joy : niềm vui,  sự vui mừng
 judge : xét xử, phân xử; quan tòa, thẩm phán
 judgement : sự xét xử
 juice : nước ép (rau, củ, quả)
-July : tháng 7
 jump : nhảy;  sự nhảy,  bước nhảy
-June : tháng 6
 junior : trẻ hơn, ít tuổi hơn; người ít tuổi hơn
 just : đúng,  vưa đủ; vưa mới, chỉ
 justice : sự công bằng
@@ -1612,8 +1596,8 @@ kid : con dê non
 kill : giết, tiêu diệt
 killing : sự giết chóc, sự tàn sát
 kilogram : Kilôgam
-kilometre : Kilômet
 kilometer : Kilômet
+kilometre : Kilômet
 kind : loại, giống; tử tế, có lòng tốt
 kindly : tử tế, tốt bụng
 kindness : sự tử tế, lòng tốt
@@ -1727,7 +1711,6 @@ lorry : xe tải
 lose : mất, thua, lạc
 loss : sự mất, sự thua
 lost : thua, mất
-a lot : số lượng lớn; rất nhiều
 loud : to, inh ỏi, ầm ĩ; to, lớn (nói)
 loudly : ầm ĩ,  inh ỏi
 love : tình  yêu,  lòng  yêu thương; yêu, thích
@@ -1767,7 +1750,6 @@ manufacturer : người chế tạo, người sản xuất
 manufacturing : sự sản xuất,  sự chế tạo
 many : nhiều
 map : bản đồ
-March : tháng ba
 mark : dấu, nhãn, nhãn mác; đánh dấu, ghi dấu
 market : chợ, thị trường
 marketing : ma-kết-tinh
@@ -1785,7 +1767,6 @@ mathematics : toán học, môn toán
 matter : chất, vật chất; có ý nghĩa, có tính chất quan trọng
 maximum : cực độ, tối đa; trị số cực đại, lượng cực đại, cực độ
 may : có thể,  có lẽ
-May : tháng 5
 maybe : có thể,  có lẽ
 mayor : thị trưởng
 me : tôi, tao, tớ
@@ -1818,10 +1799,10 @@ message : tin nhắn, thư tín, điện thông báo, thông điệp
 metal : kim loại
 method : phương pháp, cách thức
 metre : mét
-mid- : tiền tố: một nửa
 midday : trưa, buổi trưa
 middle : giữa, ở giữa
 midnight : nửa đêm, 12h đêm
+mid- : tiền tố: một nửa
 might : qk. may có thể, có lẽ
 mild : nhẹ,  êm dịu, ôn hòa
 mile : dặm (đo lường)
@@ -1851,7 +1832,6 @@ mobile phone : điện thoại đi động
 model : mẫu, kiểu mẫu
 modern : hiện đại, tân tiến
 moment : chốc, lát
-Monday : thứ 2
 money : tiền
 monitor : lớp trưởng, màn hình máy tính; nghe,  ghi phát thanh,  giám sát
 month : tháng
@@ -1877,9 +1857,6 @@ movement : sự chuyển động, sự hoạt động; c động, động tác
 movie : phim xi nê
 movie theater : rạp chiếu phim
 moving : động, hoạt động
-Mr : Ông, ngài
-Mrs : Cô
-Ms : Bà, Cô
 much : nhiều, lắm
 mud : bùn
 multiply : nhân lên, làm tăng lên nhiều lần; sinh sôi nảy nở
@@ -1942,9 +1919,9 @@ nobody : không ai, không người nào
 noise : tiếng ồn, sự huyên  náo
 noisily : ồn ào, huyên náo
 noisy : ồn ào, huyên náo
-non- : không
 none : không ai, không người, vật  gì
 nonsense : lời nói vô lý,  vô nghĩa
+non- : không
 nor : cũng không
 normal : thường, bình thường; tình trạng bình thường
 normally : thông  thường, như  thường lệ
@@ -1957,14 +1934,12 @@ nothing : không  gì, không  cái gì
 notice : thông báo, yết thị; chú ý, để ý, nhận  biết. take notice of chú ý
 noticeable : đáng chú ý, đáng để  ý
 novel : tiểu thuyết,  truyện
-November : tháng 11
 now : bây giờ, hiện giờ, hiện nay
 nowhere : không  nơi nào, không  ở đâu
 nuclear : (thuộc)  hạt nhân
 number : số
 nurse : y tá
 nut : quả hạch; đầu
-o clock : đúng giờ
 obey : vâng  lời, tuân theo, tuân lệnh
 object : vật, vật thể, đối tượng; phản đối,chống lại
 objective : mục tiêu, mục đích; (thuộc) mục tiêu, khách quan
@@ -1979,7 +1954,6 @@ occupied : đang sử dụng,  đầy (người)
 occupy : giữ, chiếm lĩnh,  chiếm giữ
 occur : xảy ra, xảy đến, xuất  hiện
 ocean : đại dương
-October : tháng 10
 odd : kỳ quặc, kỳ cục, lẻ (số)
 oddly : kỳ quặc, kỳ cục, lẻ (số)
 of : của
@@ -2048,7 +2022,7 @@ overcome : thắng, chiến thắng, khắc phục, đánh bại (khó khăn)
 owe : nợ, hàm ơn; có được (cái gì)
 own : của chính mình, tự mình; nhận, nhìn  nhận
 owner : người chủ,  chủ nhân
-p.m. : quá trưa, chiều, tối
+o clock : đúng giờ
 pace : bước chân, bước
 pack : gói, bọc; bó, gói
 package : gói đồ, bưu kiện; đóng gói, đóng kiện
@@ -2090,8 +2064,8 @@ patient : bệnh nhân; kiên nhẫn, nhẫn nại, bền chí
 pattern : mẫu, khuôn mẫu
 pause : tạm nghỉ, dưng; sự tạm nghỉ, sự tạm ngưng
 pay : trả, thanh  toán, nộp; tiền lương
-pay attention to : chú ý tới
 payment : sự trả tiền, số tiền trả, tiền bồi thường
+pay attention to : chú ý tới
 peace : hòa bình,  sự hòa thuận
 peaceful : hòa bình,  thái bình,  yên  tĩnh
 peak : lưỡi trai; đỉnh, chóp
@@ -2321,6 +2295,7 @@ pursue : đuổi theo, đuổi bắt
 push : xô đẩy; sự xô  đẩy
 put : đặt, để, cho vào
 put sth on : mặc (áo), đội (mũ), đi (giày). put sth out tắt, dập tắt
+p.m. : quá trưa, chiều, tối
 qualification : phẩm chất, năng lực; khả năng chuyên môn
 qualified : đủ tư cách, điều kiện, khả năng
 qualify : đủ khả  năng, đủ tư cách, điều kiệ
@@ -2352,7 +2327,6 @@ rarely : hiếm khi, ít khi
 rate : tỷ lệ, tốc độ
 rather : thà.. còn hơn, thích... Hơn. Rather:  than hơn là
 raw : sống (# chín), thô, còn nguyên chất
-re- : lại, nữa
 reach : đến, đi đến, tới
 react : tác động trở lại, phản ứng
 reaction : sự phản ứng; sự phản tác dụng
@@ -2385,8 +2359,8 @@ recover : lấy lại, giành lại
 red : đỏ; màu đỏ
 reduce : giảm, giảm bớt
 reduction : sự giảm giá, sự hạ giá
-refer to : xem, tham khảo; ám chỉ, nhắc  đế
 reference : sự tham khảo, hỏi ý kiến
+refer to : xem, tham khảo; ám chỉ, nhắc  đế
 reflect : phản chiếu, phản hồi, phản  ánh
 reform : cải cách, cải thiện, cải tạo; sự cải cách, sự cải thiện, cải tạo
 refrigerator : tủ lạnh
@@ -2478,10 +2452,11 @@ revise : đọc lại, xem lại, sửa lại, ôn lại
 revision : sự xem lại, sự đọc lại, sự sửa lại, sự ôn lại
 revolution : cuộc cách mạng
 reward : sự thưởng, phần thưởng; thưởng, thưởng công
+re- : lại, nữa
 rhythm : nhịp điệu
 rice : gạo, thóc, cơm; cây lúa
 rich : giàu, giàu có
-rid : giải thoát (get rid of : tống khứ)
+rid : giải thoát (get rid of
 ride : đi, cưỡi (ngựa); sự đi, đường đi
 rider : người cưỡi ngựa, người đi xe đạ
 ridiculous : buồn cười, lố bịch, lố lăng
@@ -2546,7 +2521,6 @@ satisfaction : sự làm cho thỏa mãn, toại nguyện sự trả nợ, bồi
 satisfied : cảm thấy hài lòng, vưa ý, thoả mãn
 satisfy : làm thỏa mãn, hài lòng; trả (nợ), chuộc tội
 satisfying : đem lại sự thỏa mãn, làm thỏa mãn, làm vưa ý
-Saturday : thứ 7
 sauce : nước xốt, nước chấm
 save : cứu, lưu
 saving : sự cứu, sự tiết kiệm
@@ -2585,3 +2559,4 @@ see : nhìn,  nhìn  thấy,  quan sát
 seed : hạt, hạt giống
 seek : tìm,  tìm  kiếm, theo đuổi
 seem linking : có v
+well : tốt, khỏe

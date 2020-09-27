@@ -55,16 +55,6 @@
           </component>
         </children>
       </scrollpane>
-      <component id="3e7be" class="javax.swing.JButton" binding="OptionButton">
-        <constraints>
-          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="50" height="50"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Option"/>
-        </properties>
-      </component>
       <component id="2e2c6" class="javax.swing.JLabel" binding="Search">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>

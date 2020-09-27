@@ -6,6 +6,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.html.Option;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -29,9 +30,9 @@ public class DictionaryApplication extends JFrame {
     DictionaryApplication() {
         super("Dictionary");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.pack();
         this.setLayout(null);
-        this.setSize(1200,900);
+        this.setPreferredSize(new Dimension(1200,900));
+        //this.pack();
         DM.insertFromFile(dictionary);
         this.setVisible(true);
     }
@@ -49,20 +50,6 @@ public class DictionaryApplication extends JFrame {
     }
 
     void creatSeachingResults() {
-        /*Show = new JButton("Show all words");
-        Show.setBounds(500, 10, 150, 30);
-        Show.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                Trie T = dictionary.getTrieWord().find("");
-                if (T != null) {
-                    ArrayList<Word> find_words = T.getListOfWord();
-                    for (Word w : find_words) {
-                        model.addElement(w.getWord_target());
-                    }
-                }
-            }
-        });
-        this.add(Show);*/
         Result = new JLabel("Searching Result");
         Result.setFont(font);
         Result.setBounds(10, 70, 200, 25);
@@ -202,7 +189,10 @@ public class DictionaryApplication extends JFrame {
                 optionMenu.show(OptionButton, e.getX(), e.getY());
             }
         });
+
         this.add(OptionButton);
+        this.pack();
+
     }
 
     void creatShowButton() {
@@ -211,6 +201,7 @@ public class DictionaryApplication extends JFrame {
         Show.setBounds(1050, 20, 50, 50);
         Show.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
+                model.removeAllElements();
                 Trie T = dictionary.getTrieWord().find("");
                 if (T != null) {
                     ArrayList<Word> find_words = T.getListOfWord();
@@ -239,12 +230,12 @@ public class DictionaryApplication extends JFrame {
     }
 
     void runApplication() {
-        this.creatExportButton();
-        this.creatShowButton();
-        this.creatOptionButton();
         this.creatSearchingBox();
         this.creatSeachingResults();
         this.creatDefinition();
+        this.creatExportButton();
+        this.creatShowButton();
+        this.creatOptionButton();
     }
 
     public static void main(String[] args) {
