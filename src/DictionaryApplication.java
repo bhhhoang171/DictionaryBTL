@@ -1,5 +1,7 @@
 //import jaco.mp3.a.D;
 
+import jaco.mp3.player.MP3Player;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -8,6 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.text.html.Option;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class DictionaryApplication extends JFrame {
@@ -16,16 +19,19 @@ public class DictionaryApplication extends JFrame {
     private JTextField SearchingBox;
     private JList SearchingResults;
     private JScrollPane scroll;
-    private JTextArea Definition;
+    private JTextPane Definition;
     private JScrollPane scroll1;
     private JButton OptionButton;
+    private JTextArea Filename = new JTextArea();
     private JLabel Search;
     private JLabel Result;
     private JLabel WordsExplain;
     private JPanel main;
     private JButton Export;
     private JButton Show;
+    private JButton Audio;
     private DefaultListModel model;
+    private MP3Player player;
     private final java.awt.Font font = new java.awt.Font("Times New Roman",0,20);
 
     DictionaryApplication() {
@@ -51,20 +57,7 @@ public class DictionaryApplication extends JFrame {
     }
 
     void creatSeachingResults() {
-        /*Show = new JButton("Show all words");
-        Show.setBounds(500, 10, 150, 30);
-        Show.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                Trie T = dictionary.getTrieWord().find("");
-                if (T != null) {
-                    ArrayList<Word> find_words = T.getListOfWord();
-                    for (Word w : find_words) {
-                        model.addElement(w.getWord_target());
-                    }
-                }
-            }
-        });
-        this.add(Show);*/
+
         Result = new JLabel("Searching Result");
         Result.setFont(font);
         Result.setBounds(10, 70, 200, 25);
@@ -115,7 +108,9 @@ public class DictionaryApplication extends JFrame {
     void creatDefinition() {
         Definition.setFont(font);
         SearchingResults.addListSelectionListener(new ListSelectionListener() {
-            @Override
+            String defaultpath = "C:\\Users\\hoang\\OneDrive\\Desktop\\DictionaryBTL\\Longman 2005 Voice Package - British";
+            String filename = new String();
+            String filepath = new String();
             public void valueChanged(ListSelectionEvent e) {
                 int selected_index = SearchingResults.getSelectedIndex();
                 Trie T = dictionary.getTrieWord().find(SearchingBox.getText());
@@ -123,7 +118,15 @@ public class DictionaryApplication extends JFrame {
                     ArrayList<Word> find_words = T.getListOfWord();
                     Word selected_word = find_words.get(selected_index);
                     Definition.setText(selected_word.getWord_explain());
+                    Filename.setText(selected_word.getWord_target());
                 }
+                filename = Filename.getText();
+                Character prechar = Filename.getText().charAt(0);
+                if (Character.isLowerCase(prechar)) {
+                    prechar = Character.toUpperCase(prechar);
+                }
+                filepath = defaultpath + "\\"+ prechar + "\\" + filename+".mp3";
+                player = new MP3Player(new File(filepath));
 
             }
         });
@@ -242,7 +245,21 @@ public class DictionaryApplication extends JFrame {
         });
         this.add(Export);
     }
+    void creatAudioSystem() {
 
+        Audio = new JButton("A");
+        Audio.setBounds(950,20,50,50);
+         Audio.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                player.play();
+            }
+        });
+
+        this.add(Audio);
+        this.pack();
+
+    }
     void runApplication() {
 
         this.creatSearchingBox();
@@ -251,6 +268,7 @@ public class DictionaryApplication extends JFrame {
         this.creatExportButton();
         this.creatShowButton();
         this.creatOptionButton();
+        this.creatAudioSystem();
     }
 
     public static void main(String[] args) {

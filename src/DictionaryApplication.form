@@ -51,7 +51,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="8255a" class="javax.swing.JTextArea" binding="Definition">
+          <component id="8255a" class="javax.swing.JTextPane" binding="Definition">
             <constraints/>
             <properties>
               <text value=""/>
