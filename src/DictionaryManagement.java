@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -41,19 +42,27 @@ public class DictionaryManagement {
     }
 
     public void insertFromFile(Dictionary Dic) {
+        BufferedReader br = null;
         try {
-            Scanner sc = new Scanner(new File("dictionaries.txt"));
-            String target;
-            String  explain;
+            br = new BufferedReader(new InputStreamReader(new FileInputStream("dictionaries.txt"), StandardCharsets.UTF_8));
             Trie TrieWord = Dic.getTrieWord();
-            while (sc.hasNext()) {
-                String[] split = sc.nextLine().split(" : ");
+            String textInALine;
+            String target;
+            String explain;
+            while ((textInALine = br.readLine()) != null) {
+                String[] split = textInALine.split(" : ");
                 target = split[0];
                 explain = split[1];
                 TrieWord.add(new Word(target, explain));
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -106,7 +115,7 @@ public class DictionaryManagement {
     public void dictionaryExportToFile(Dictionary Dic) {
         BufferedWriter bw = null;
         try {
-            bw = new BufferedWriter(new FileWriter("dictionaries.txt"));
+            bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("dictionaries.txt"), StandardCharsets.UTF_8));
             ArrayList<Word> ListOfWord = Dic.getListOfWord();
             for (Word word : ListOfWord) {
                 bw.write(word.getWord_target() + " : " + word.getWord_explain() + "\n");
