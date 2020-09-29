@@ -1,5 +1,6 @@
 //import jaco.mp3.a.D;
 
+import com.sun.deploy.panel.JSmartTextArea;
 import jaco.mp3.player.MP3Player;
 
 import javax.imageio.ImageIO;
@@ -8,6 +9,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.StyledDocument;
 import javax.swing.text.html.Option;
 import java.awt.*;
 import java.awt.event.*;
@@ -22,7 +24,7 @@ public class DictionaryApplication extends JFrame {
     private JTextField SearchingBox;
     private JList SearchingResults;
     private JScrollPane scroll;
-    private JTextPane Definition;
+    private JSmartTextArea Definition;
     private JScrollPane scroll1;
     private JButton OptionButton;
     private JTextArea Filename = new JTextArea();
@@ -39,10 +41,15 @@ public class DictionaryApplication extends JFrame {
 
     DictionaryApplication() {
         super("Dictionary");
+        Image icon = Toolkit.getDefaultToolkit().getImage("icon\\dict_icon.png");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setPreferredSize(new Dimension(1200,900));
+        this.setLocation(300,50);
+        this.setUndecorated(true);
+        this.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         DM.insertFromFile(dictionary);
+        this.setIconImage(icon);
         this.getContentPane().setBackground(Color.decode("#43adc4"));
         this.setVisible(true);
     }
@@ -109,10 +116,11 @@ public class DictionaryApplication extends JFrame {
     }
 
     void creatDefinition() {
-        Definition = new JTextPane();
+        Definition = new JSmartTextArea();
+        //Definition.setColumns(5);
         Definition.setFont(font);
         SearchingResults.addListSelectionListener(new ListSelectionListener() {
-            String defaultpath = "Longman 2005 Voice Package - British";
+            String defaultpath = "C:\\Users\\hoang\\OneDrive\\Desktop\\DictionaryBTL\\Lingoes English\\Longman 2005 Voice Package - British";
             String filename = new String();
             String filepath = new String();
             public void valueChanged(ListSelectionEvent e) {
@@ -154,22 +162,23 @@ public class DictionaryApplication extends JFrame {
         addMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String target = JOptionPane.showInputDialog("Please insert a word you want to add").toLowerCase().trim();
-                if (target.isEmpty()) {
+                while (target.isEmpty() || target.charAt(0) == ' ') {
                     JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    return;
+                     target = JOptionPane.showInputDialog("Please insert a word you want to add").toLowerCase().trim();
                 }
                 for (int i = 0; i < target.length(); ++i) {
                     if (target.charAt(i) < 'a' || target.charAt(i) > 'z') {
                         if (target.charAt(i) != ' ' && target.charAt(i) != '.' && target.charAt(i) != '-' && target.charAt(i) != '\'') {
-                            JOptionPane.showMessageDialog(getParent(), "Please insert a word");
+                            JOptionPane.showMessageDialog(getParent(), "This word is not accepted !");
                             return;
                         }
                     }
                 }
                 String explain = JOptionPane.showInputDialog("Explain:").trim();
-                if (explain.isEmpty()) {
+                while  (explain.isEmpty() || explain.charAt(0) == ' ') {
                     JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    return;
+                    explain = JOptionPane.showInputDialog("Explain:").trim();
+
                 }
                 int output = JOptionPane.showConfirmDialog(getParent(),"Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
                 if (output == JOptionPane.YES_OPTION) {
@@ -182,14 +191,14 @@ public class DictionaryApplication extends JFrame {
         removeMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String target = JOptionPane.showInputDialog("Please insert a word you want to delete").toLowerCase().trim();
-                if (target.isEmpty()) {
+                while (target.isEmpty() || target.charAt(0) == ' ') {
                     JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    return;
+                    target = JOptionPane.showInputDialog("Please insert a word you want to delete").toLowerCase().trim();
                 }
                 for (int i = 0; i < target.length(); ++i) {
                     if (target.charAt(i) < 'a' || target.charAt(i) > 'z') {
                         if (target.charAt(i) != ' ' && target.charAt(i) != '.' && target.charAt(i) != '-' && target.charAt(i) != '\'') {
-                            JOptionPane.showMessageDialog(getParent(), "Please insert a word");
+                            JOptionPane.showMessageDialog(getParent(), "This word is not accepted !");
                             return;
                         }
                     }
@@ -205,22 +214,22 @@ public class DictionaryApplication extends JFrame {
         changeMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String target = JOptionPane.showInputDialog("Please insert a word you want to change").toLowerCase().trim();
-                if (target.isEmpty()) {
+                while (target.isEmpty() || target.charAt(0) == ' ') {
                     JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    return;
+                    target = JOptionPane.showInputDialog("Please insert a word you want to change").toLowerCase().trim();
                 }
                 for (int i = 0; i < target.length(); ++i) {
                     if (target.charAt(i) < 'a' || target.charAt(i) > 'z') {
                         if (target.charAt(i) != ' ' && target.charAt(i) != '.' && target.charAt(i) != '-' && target.charAt(i) != '\'') {
-                            JOptionPane.showMessageDialog(getParent(), "Please insert a word");
+                            JOptionPane.showMessageDialog(getParent(), "This word is not accepted !");
                             return;
                         }
                     }
                 }
                 String explain = JOptionPane.showInputDialog("New explain:").trim();
-                if (explain.isEmpty()) {
-                    JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    return;
+                while (explain.isEmpty()) {
+                    JOptionPane.showMessageDialog(getParent(), "This meaning is not accepted !");
+                    explain = JOptionPane.showInputDialog("New explain:").trim();
                 }
                 int output = JOptionPane.showConfirmDialog(getParent(),"Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
                 if (output == JOptionPane.YES_OPTION) {
