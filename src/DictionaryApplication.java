@@ -37,6 +37,7 @@ public class DictionaryApplication extends JFrame {
     private JButton Audio;
     private DefaultListModel model;
     private MP3Player player;
+    private JTextField GoogleSearching;
     private final java.awt.Font font = new java.awt.Font("Arial",0,20);
 
     DictionaryApplication() {
@@ -59,9 +60,9 @@ public class DictionaryApplication extends JFrame {
         SearchingBox.setBounds(0,30,450,35);
         SearchingBox.setFont(font);
         SearchingBox.setToolTipText("Prefix search");
-        Search = new JLabel("Search");
+        Search = new JLabel("Search offline");
         Search.setFont(font);
-        Search.setBounds(10, 3, 100, 25);
+        Search.setBounds(10, 3, 200, 25);
         this.add(Search);
         this.add(SearchingBox);
     }
@@ -73,7 +74,7 @@ public class DictionaryApplication extends JFrame {
         this.add(Result);
         WordsExplain = new JLabel("Definition");
         WordsExplain.setFont(font);
-        WordsExplain.setBounds(510, 73, 100, 20);
+        WordsExplain.setBounds(550, 73, 100, 20);
         this.add(WordsExplain);
         SearchingResults = new JList();
         model = new DefaultListModel();
@@ -132,7 +133,7 @@ public class DictionaryApplication extends JFrame {
                     Definition.setText(selected_word.getWord_explain());
                     Filename.setText(selected_word.getWord_target());
                 }
-                filename = Filename.getText();
+                filename = Filename.    getText();
                 Character prechar = Filename.getText().charAt(0);
                 if (Character.isLowerCase(prechar)) {
                     prechar = Character.toUpperCase(prechar);
@@ -143,11 +144,24 @@ public class DictionaryApplication extends JFrame {
             }
         });
         scroll1 = new JScrollPane(Definition);
-        scroll1.setBounds(500,100,670,720);
+        scroll1.setBounds(550,100,600,720);
         this.add(scroll1);
         System.gc();
     }
-
+    void creatGoogleSearching() {
+        GoogleSearching = new JTextField();
+        GoogleSearching.setBounds(550,30,450,35);
+        GoogleSearching.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String onl_target = GoogleSearching.getText();
+                OnlineSearch c = new OnlineSearch();
+                String onl_explain = c.gettext(onl_target);
+                Definition.setText(onl_explain);
+            }
+        });
+        this.add(GoogleSearching);
+    }
     void creatOptionButton() {
         BufferedImage img = null;
         try {
@@ -155,7 +169,7 @@ public class DictionaryApplication extends JFrame {
         } catch (IOException e) {}
         ImageIcon optionIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         OptionButton = new JButton(optionIcon);
-        OptionButton.setBounds(1100,20,50,50);
+        OptionButton.setBounds(475,100,50,50);
         OptionButton.setToolTipText("Option");
         final JPopupMenu optionMenu = new JPopupMenu("Option");
         JMenuItem addMenuItem = new JMenuItem("Add a word");
@@ -258,7 +272,7 @@ public class DictionaryApplication extends JFrame {
         ImageIcon showIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         Show = new JButton(showIcon);
         Show.setToolTipText("Show all words");
-        Show.setBounds(1050, 20, 50, 50);
+        Show.setBounds(475, 150, 50, 50);
         Show.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 model.removeAllElements();
@@ -274,7 +288,6 @@ public class DictionaryApplication extends JFrame {
         this.add(Show);
         System.gc();
     }
-
     void creatExportButton() {
         BufferedImage img = null;
         try {
@@ -283,7 +296,7 @@ public class DictionaryApplication extends JFrame {
         ImageIcon exportIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         Export = new JButton(exportIcon);
         Export.setToolTipText("Export dictionary to file");
-        Export.setBounds(1000, 20, 50, 50);
+        Export.setBounds(475, 200, 50, 50);
         Export.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int output = JOptionPane.showConfirmDialog(getParent(),"Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
@@ -302,7 +315,7 @@ public class DictionaryApplication extends JFrame {
         ImageIcon audioIcon = new ImageIcon(audioImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         Audio = new JButton(audioIcon);
         Audio.setToolTipText("Listen");
-        Audio.setBounds(950,20,50,50);
+        Audio.setBounds(1050,20,50,50);
         Audio.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -313,11 +326,12 @@ public class DictionaryApplication extends JFrame {
         this.pack();
         System.gc();
     }
-    
+
     void runApplication() {
         this.creatSearchingBox();
         this.creatSeachingResults();
         this.creatDefinition();
+        this.creatGoogleSearching();
         this.creatExportButton();
         this.creatShowButton();
         this.creatOptionButton();
