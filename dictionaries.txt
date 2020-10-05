@@ -2560,3 +2560,4 @@ seed : hạt, hạt giống
 seek : tìm,  tìm  kiếm, theo đuổi
 seem linking : có v
 well : tốt, khỏe
+cc : ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
