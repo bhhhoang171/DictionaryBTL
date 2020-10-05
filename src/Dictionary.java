@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Dictionary {
 
-    private Trie TrieWord = new Trie();
+    private final Trie TrieWord = new Trie();
 
     public ArrayList<Word> getListOfWord() {
         return TrieWord.getListOfWord();
@@ -13,8 +13,8 @@ public class Dictionary {
     }
 
     public void setTrieWord(ArrayList<Word> listOfWord) {
-        for (int i = 0; i < listOfWord.size(); ++i) {
-            TrieWord.add(listOfWord.get(i));
+        for (Word word : listOfWord) {
+            TrieWord.add(word);
         }
     }
 }

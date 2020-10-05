@@ -44,7 +44,8 @@ public class DictionaryManagement {
     public void insertFromFile(Dictionary Dic) {
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream("dictionaries.txt"), StandardCharsets.UTF_8));
+            br = new BufferedReader(
+                    new InputStreamReader(new FileInputStream("dictionaries.txt"), StandardCharsets.UTF_8));
             Trie TrieWord = Dic.getTrieWord();
             String textInALine;
             String target;
@@ -53,13 +54,52 @@ public class DictionaryManagement {
                 String[] split = textInALine.split(" : ");
                 target = split[0];
                 explain = split[1];
-                TrieWord.add(new Word(target, explain));
+                TrieWord.add(new Word(target.toLowerCase(), explain));
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
                 br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void insertFromFile1(Dictionary Dic) {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(new FileInputStream("AnhViet.dict"), StandardCharsets.UTF_8));
+            Trie TrieWord = Dic.getTrieWord();
+            String textInALine;
+            String target = "";
+            String explain = "";
+            while ((textInALine = br.readLine()) != null) {
+                if (textInALine.isEmpty()) {
+                    continue;
+                } else if (textInALine.charAt(0) == '@') {
+                    TrieWord.add(new Word(target, explain));
+                    for (int i = 0; i < textInALine.length(); ++i) {
+                        if (textInALine.charAt(i) == '/') {
+                            target = textInALine.substring(1, i - 1);
+                            explain = "Phát âm: " + textInALine.substring(i, textInALine.length()) + "\n";
+                            // System.out.println(target);
+                            break;
+                        }
+                    }
+                    // TrieWord.add(new Word(target, explain));
+                } else {
+                    explain += textInALine + "\n";
+                }
+            }
+            TrieWord.add(new Word(target.toLowerCase(), explain));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                // System.out.println(Dic.getTrieWord().getListOfWord().size());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -76,6 +116,15 @@ public class DictionaryManagement {
             System.out.println("The word is not found!");
         else
             T.getWord().print();
+    }
+
+    public boolean dictionaryLookup(Dictionary Dic, String WordLookup) {
+        Trie T = Dic.getTrieWord().find(WordLookup);
+        if (T == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void deleteWord(Dictionary Dic) {
@@ -115,7 +164,8 @@ public class DictionaryManagement {
     public void dictionaryExportToFile(Dictionary Dic) {
         BufferedWriter bw = null;
         try {
-            bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("dictionaries.txt"), StandardCharsets.UTF_8));
+            bw = new BufferedWriter(
+                    new OutputStreamWriter(new FileOutputStream("dictionaries.txt"), StandardCharsets.UTF_8));
             ArrayList<Word> ListOfWord = Dic.getListOfWord();
             for (Word word : ListOfWord) {
                 bw.write(word.getWord_target() + " : " + word.getWord_explain() + "\n");

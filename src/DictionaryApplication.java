@@ -1,5 +1,6 @@
 //import jaco.mp3.a.D;
 
+import com.sun.deploy.panel.JSmartTextArea;
 import jaco.mp3.player.MP3Player;
 
 import javax.imageio.ImageIO;
@@ -8,7 +9,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.html.Option;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -19,56 +19,52 @@ import java.util.ArrayList;
 public class DictionaryApplication extends JFrame {
     private Dictionary dictionary = new Dictionary();
     private DictionaryManagement DM = new DictionaryManagement();
-    private JTextField SearchingBox;
-    private JList SearchingResults;
-    private JScrollPane scroll;
-    private JTextPane Definition;
-    private JScrollPane scroll1;
-    private JButton OptionButton;
-    private JTextArea Filename = new JTextArea();
-    private JLabel Search;
-    private JLabel Result;
-    private JLabel WordsExplain;
+    private final JTextField SearchingBox = new JTextField();
+    private final JList SearchingResults = new JList();
+    private final JSmartTextArea Definition = new JSmartTextArea();
+    private final JTextArea Filename = new JTextArea();
+    private final JLabel Search = new JLabel("Search");
+    private final JLabel Result = new JLabel("Searching Result");
+    private final JLabel WordsExplain = new JLabel("Definition");
     private JPanel main;
-    private JButton Export;
-    private JButton Show;
-    private JButton Audio;
+    private JButton OptionButton;
+    private final TranslateApi translateApi = new TranslateApi();
     private DefaultListModel model;
     private MP3Player player;
-    private final java.awt.Font font = new java.awt.Font("Arial",0,20);
+    private final java.awt.Font font = new java.awt.Font("Arial", 0, 20);
 
     DictionaryApplication() {
         super("Dictionary");
+        Image icon = Toolkit.getDefaultToolkit().getImage("icon\\dict_icon.png");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
-        this.setPreferredSize(new Dimension(1200,900));
-        DM.insertFromFile(dictionary);
+        this.setPreferredSize(new Dimension(1200, 900));
+        this.setLocation(300, 50);
+        this.setUndecorated(true);
+        this.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+        DM.insertFromFile1(dictionary);
+        this.setIconImage(icon);
         this.getContentPane().setBackground(Color.decode("#43adc4"));
         this.setVisible(true);
     }
 
-    void creatSearchingBox() {
-        SearchingBox = new JTextField();
-        SearchingBox.setBounds(0,30,450,35);
+    void createSearchingBox() {
+        SearchingBox.setBounds(0, 30, 450, 35);
         SearchingBox.setFont(font);
         SearchingBox.setToolTipText("Prefix search");
-        Search = new JLabel("Search");
         Search.setFont(font);
         Search.setBounds(10, 3, 100, 25);
         this.add(Search);
         this.add(SearchingBox);
     }
 
-    void creatSeachingResults() {
-        Result = new JLabel("Searching Result");
+    void createSearchingResults() {
         Result.setFont(font);
         Result.setBounds(10, 70, 200, 25);
         this.add(Result);
-        WordsExplain = new JLabel("Definition");
         WordsExplain.setFont(font);
         WordsExplain.setBounds(510, 73, 100, 20);
         this.add(WordsExplain);
-        SearchingResults = new JList();
         model = new DefaultListModel();
         SearchingResults.setFont(font);
         SearchingResults.setModel(model);
@@ -102,19 +98,19 @@ public class DictionaryApplication extends JFrame {
                 }
             }
         });
-        scroll = new JScrollPane(SearchingResults);
-        scroll.setBounds(0,100,450,720);
+        JScrollPane scroll = new JScrollPane(SearchingResults);
+        scroll.setBounds(0, 100, 450, 720);
         this.add(scroll);
         System.gc();
     }
 
-    void creatDefinition() {
-        Definition = new JTextPane();
+    void createDefinition() {
         Definition.setFont(font);
         SearchingResults.addListSelectionListener(new ListSelectionListener() {
-            String defaultpath = "Longman 2005 Voice Package - British";
-            String filename = new String();
-            String filepath = new String();
+            final String defaultpath = "Longman 2005 Voice Package - British";
+            String filename = "";
+            String filepath = "";
+
             public void valueChanged(ListSelectionEvent e) {
                 int selected_index = SearchingResults.getSelectedIndex();
                 Trie T = dictionary.getTrieWord().find(SearchingBox.getText());
@@ -134,99 +130,126 @@ public class DictionaryApplication extends JFrame {
 
             }
         });
-        scroll1 = new JScrollPane(Definition);
-        scroll1.setBounds(500,100,670,720);
+        JScrollPane scroll1 = new JScrollPane(Definition);
+        scroll1.setBounds(500, 100, 670, 720);
         this.add(scroll1);
         System.gc();
     }
 
-    void creatOptionButton() {
-        BufferedImage img = null;
+    void createOptionButton() {
+        BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\option.png"));
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, e);
+            return;
+        }
         ImageIcon optionIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         OptionButton = new JButton(optionIcon);
-        OptionButton.setBounds(1100,20,50,50);
+        OptionButton.setBounds(1100, 20, 50, 50);
         OptionButton.setToolTipText("Option");
         final JPopupMenu optionMenu = new JPopupMenu("Option");
         JMenuItem addMenuItem = new JMenuItem("Add a word");
-        addMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String target = JOptionPane.showInputDialog("Please insert a word you want to add").toLowerCase().trim();
-                if (target.isEmpty()) {
-                    JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    return;
-                }
-                for (int i = 0; i < target.length(); ++i) {
-                    if (target.charAt(i) < 'a' || target.charAt(i) > 'z') {
-                        if (target.charAt(i) != ' ' && target.charAt(i) != '.' && target.charAt(i) != '-' && target.charAt(i) != '\'') {
-                            JOptionPane.showMessageDialog(getParent(), "Please insert a word");
+        addMenuItem.addActionListener(e -> {
+            String target;
+            try {
+                target = JOptionPane.showInputDialog("Please insert a word you want to delete").toLowerCase()
+                        .trim();
+            } catch (Exception er) {
+                return;
+            }
+            while (target.isEmpty()) {
+                JOptionPane.showMessageDialog(getParent(), "Please insert a word");
+                target = JOptionPane.showInputDialog("Please insert a word you want to add").toLowerCase().trim();
+            }
+            for (int i = 0; i < target.length(); ++i) {
+                char a = target.charAt(i);
+                if (a < 'a' || a > 'z') {
+                    if (a != ' ' && a != '.' && a != '-' && a != '\'') {
+                        if (a != 'â' && a != 'ê' && a != 'é' && a != 'è' && a != 'ô' && a != 'ö' && a != 'à'
+                                && a != 'û' && a != 'ã' && a != 'ə') {
+                            JOptionPane.showMessageDialog(getParent(), "This word is not accepted !");
                             return;
                         }
                     }
                 }
-                String explain = JOptionPane.showInputDialog("Explain:").trim();
-                if (explain.isEmpty()) {
-                    JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    return;
-                }
-                int output = JOptionPane.showConfirmDialog(getParent(),"Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
-                if (output == JOptionPane.YES_OPTION) {
-                    DM.insertFromCommandline(dictionary, target, explain);
-                    JOptionPane.showMessageDialog(getParent(), "Inserted successfully");
-                }
+            }
+            String explain;
+            try {
+                explain = JOptionPane.showInputDialog("Explain:").trim();
+            } catch (Exception er) {
+                return;
+            }
+            while (explain.isEmpty()) {
+                JOptionPane.showMessageDialog(getParent(), "Please insert a word");
+                explain = JOptionPane.showInputDialog("Explain:").trim();
+
+            }
+            int output = JOptionPane.showConfirmDialog(getParent(), "Are you sure?", "Confirmation",
+                    JOptionPane.YES_NO_OPTION);
+            if (output == JOptionPane.YES_OPTION) {
+                DM.insertFromCommandline(dictionary, target, explain);
+                JOptionPane.showMessageDialog(getParent(), "Inserted successfully");
             }
         });
         JMenuItem removeMenuItem = new JMenuItem("Remove a word");
-        removeMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String target = JOptionPane.showInputDialog("Please insert a word you want to delete").toLowerCase().trim();
-                if (target.isEmpty()) {
-                    JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    return;
-                }
-                for (int i = 0; i < target.length(); ++i) {
-                    if (target.charAt(i) < 'a' || target.charAt(i) > 'z') {
-                        if (target.charAt(i) != ' ' && target.charAt(i) != '.' && target.charAt(i) != '-' && target.charAt(i) != '\'') {
-                            JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                            return;
-                        }
-                    }
-                }
-                int output = JOptionPane.showConfirmDialog(getParent(),"Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
-                if (output == JOptionPane.YES_OPTION) {
-                    DM.deleteWord(dictionary, target);
-                    JOptionPane.showMessageDialog(getParent(), "Deleted successfully");
-                }
+        removeMenuItem.addActionListener(e -> {
+            String target;
+            try {
+                target = JOptionPane.showInputDialog("Please insert a word you want to delete").toLowerCase()
+                        .trim();
+            } catch (Exception er) {
+                return;
+            }
+            while (target.isEmpty()) {
+                JOptionPane.showMessageDialog(getParent(), "Please insert a word");
+                target = JOptionPane.showInputDialog("Please insert a word you want to delete").toLowerCase()
+                        .trim();
+            }
+            if (!DM.dictionaryLookup(dictionary, target)) {
+                JOptionPane.showMessageDialog(getParent(), "Not found!");
+                return;
+            }
+            int output = JOptionPane.showConfirmDialog(getParent(), "Are you sure?", "Confirmation",
+                    JOptionPane.YES_NO_OPTION);
+            if (output == JOptionPane.YES_OPTION) {
+                DM.deleteWord(dictionary, target);
+                JOptionPane.showMessageDialog(getParent(), "Deleted successfully");
             }
         });
         JMenuItem changeMenuItem = new JMenuItem("Change a word explain");
-        changeMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String target = JOptionPane.showInputDialog("Please insert a word you want to change").toLowerCase().trim();
-                if (target.isEmpty()) {
-                    JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    return;
-                }
-                for (int i = 0; i < target.length(); ++i) {
-                    if (target.charAt(i) < 'a' || target.charAt(i) > 'z') {
-                        if (target.charAt(i) != ' ' && target.charAt(i) != '.' && target.charAt(i) != '-' && target.charAt(i) != '\'') {
-                            JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                            return;
-                        }
-                    }
-                }
-                String explain = JOptionPane.showInputDialog("New explain:").trim();
-                if (explain.isEmpty()) {
-                    JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    return;
-                }
-                int output = JOptionPane.showConfirmDialog(getParent(),"Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
-                if (output == JOptionPane.YES_OPTION) {
-                    DM.changeWord(dictionary, target, explain);
-                    JOptionPane.showMessageDialog(getParent(), "Changed successfully");
-                }
+        changeMenuItem.addActionListener(e -> {
+            String target;
+            try {
+                target = JOptionPane.showInputDialog("Please insert a word you want to delete").toLowerCase()
+                        .trim();
+            } catch (Exception er) {
+                return;
+            }
+            while (target.isEmpty()) {
+                JOptionPane.showMessageDialog(getParent(), "Please insert a word");
+                target = JOptionPane.showInputDialog("Please insert a word you want to change").toLowerCase()
+                        .trim();
+            }
+            if (!DM.dictionaryLookup(dictionary, target)) {
+                JOptionPane.showMessageDialog(getParent(), "Not found!");
+                return;
+            }
+            String explain;
+            try {
+                explain = JOptionPane.showInputDialog("New explain:").trim();
+            } catch (Exception er) {
+                return;
+            }
+            while (explain.isEmpty()) {
+                JOptionPane.showMessageDialog(getParent(), "This meaning is not accepted !");
+                explain = JOptionPane.showInputDialog("New explain:").trim();
+            }
+            int output = JOptionPane.showConfirmDialog(getParent(), "Are you sure?", "Confirmation",
+                    JOptionPane.YES_NO_OPTION);
+            if (output == JOptionPane.YES_OPTION) {
+                DM.changeWord(dictionary, target, explain);
+                JOptionPane.showMessageDialog(getParent(), "Changed successfully");
             }
         });
         optionMenu.add(addMenuItem);
@@ -239,19 +262,25 @@ public class DictionaryApplication extends JFrame {
             }
         });
         this.add(OptionButton);
+        System.gc();
     }
 
-    void creatShowButton() {
-        BufferedImage img = null;
+    void createShowButton() {
+        BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\show.png"));
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, e);
+            return;
+        }
         ImageIcon showIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        Show = new JButton(showIcon);
-        Show.setToolTipText("Show all words");
-        Show.setBounds(1050, 20, 50, 50);
-        Show.addMouseListener(new MouseAdapter() {
+        JButton show = new JButton(showIcon);
+        show.setToolTipText("Show all words");
+        show.setBounds(1050, 20, 50, 50);
+        show.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent e) {
+                SearchingBox.setText("");
                 model.removeAllElements();
                 Trie T = dictionary.getTrieWord().find("");
                 if (T != null) {
@@ -262,57 +291,80 @@ public class DictionaryApplication extends JFrame {
                 }
             }
         });
-        this.add(Show);
+        this.add(show);
         System.gc();
     }
 
-    void creatExportButton() {
-        BufferedImage img = null;
+    void createExportButton() {
+        BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\export.png"));
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, e);
+            return;
+        }
         ImageIcon exportIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        Export = new JButton(exportIcon);
-        Export.setToolTipText("Export dictionary to file");
-        Export.setBounds(1000, 20, 50, 50);
-        Export.addMouseListener(new MouseAdapter() {
+        JButton export = new JButton(exportIcon);
+        export.setToolTipText("Export dictionary to file");
+        export.setBounds(1000, 20, 50, 50);
+        export.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent e) {
-                int output = JOptionPane.showConfirmDialog(getParent(),"Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                int output = JOptionPane.showConfirmDialog(getParent(), "Are you sure?", "Confirmation",
+                        JOptionPane.YES_NO_OPTION);
                 if (output == JOptionPane.YES_OPTION) {
                     DM.dictionaryExportToFile(dictionary);
                 }
             }
         });
-        this.add(Export);
+        this.add(export);
     }
-    void creatAudioSystem() {
-        BufferedImage audioImg = null;
+
+    void createAudioSystem() {
+        BufferedImage audioImg;
         try {
             audioImg = ImageIO.read(new File("icon\\audio.png"));
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, e);
+            return;
+        }
         ImageIcon audioIcon = new ImageIcon(audioImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        Audio = new JButton(audioIcon);
-        Audio.setToolTipText("Listen");
-        Audio.setBounds(950,20,50,50);
-        Audio.addMouseListener(new MouseAdapter() {
+        JButton audio = new JButton(audioIcon);
+        audio.setToolTipText("Listen");
+        audio.setBounds(950, 20, 50, 50);
+        audio.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 player.play();
             }
         });
-        this.add(Audio);
+        this.add(audio);
         this.pack();
         System.gc();
     }
-    
+
+    void creattranslateButton() {
+        JButton translateButton = new JButton("Translate sentence");
+        translateButton.setToolTipText("Translate sentence using Google API");
+        translateButton.setBounds(500, 30, 150, 35);
+        translateButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                translateApi.runTranslateApi();
+            }
+        });
+        this.add(translateButton);
+    }
+
     void runApplication() {
-        this.creatSearchingBox();
-        this.creatSeachingResults();
-        this.creatDefinition();
-        this.creatExportButton();
-        this.creatShowButton();
-        this.creatOptionButton();
-        this.creatAudioSystem();
+        this.createSearchingBox();
+        this.createSearchingResults();
+        this.createDefinition();
+        this.createExportButton();
+        this.createShowButton();
+        this.createOptionButton();
+        this.createAudioSystem();
+        this.creattranslateButton();
     }
 
     public static void main(String[] args) {

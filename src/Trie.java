@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Trie {
-    private Trie[] childen = new Trie[32];
+    private Trie[] childen = new Trie[42];
     private Word word;
 
     public void setWord(Word _word) {
@@ -28,10 +28,40 @@ public class Trie {
                     k = 'z' - 'a' + 2;
                     break;
                 case '.':
-                    k = 'z' - 'a' +  3;
+                    k = 'z' - 'a' + 3;
                     break;
                 case '\'':
                     k = 'z' - 'a' + 4;
+                    break;
+                case 'é':
+                    k = 'z' - 'a' + 5;
+                    break;
+                case 'â':
+                    k = 'z' - 'a' + 6;
+                    break;
+                case 'è':
+                    k = 'z' - 'a' + 7;
+                    break;
+                case 'ö':
+                    k = 'z' - 'a' + 8;
+                    break;
+                case 'ô':
+                    k = 'z' - 'a' + 9;
+                    break;
+                case 'ê':
+                    k = 'z' - 'a' + 10;
+                    break;
+                case 'à':
+                    k = 'z' - 'a' + 11;
+                    break;
+                case 'ã':
+                    k = 'z' - 'a' + 12;
+                    break;
+                case 'ə':
+                    k = 'z' - 'a' + 13;
+                    break;
+                case 'û':
+                    k = 'z' - 'a' + 14;
                     break;
                 default:
                     k = (int) target.charAt(i) - 'a';
@@ -60,10 +90,40 @@ public class Trie {
                     k = 'z' - 'a' + 2;
                     break;
                 case '.':
-                    k = 'z' - 'a' +  3;
+                    k = 'z' - 'a' + 3;
                     break;
                 case '\'':
                     k = 'z' - 'a' + 4;
+                    break;
+                case 'é':
+                    k = 'z' - 'a' + 5;
+                    break;
+                case 'â':
+                    k = 'z' - 'a' + 6;
+                    break;
+                case 'è':
+                    k = 'z' - 'a' + 7;
+                    break;
+                case 'ö':
+                    k = 'z' - 'a' + 8;
+                    break;
+                case 'ô':
+                    k = 'z' - 'a' + 9;
+                    break;
+                case 'ê':
+                    k = 'z' - 'a' + 10;
+                    break;
+                case 'à':
+                    k = 'z' - 'a' + 11;
+                    break;
+                case 'ã':
+                    k = 'z' - 'a' + 12;
+                    break;
+                case 'ə':
+                    k = 'z' - 'a' + 13;
+                    break;
+                case 'û':
+                    k = 'z' - 'a' + 14;
                     break;
                 default:
                     k = (int) target.charAt(i) - 'a';
@@ -92,10 +152,40 @@ public class Trie {
                     k = 'z' - 'a' + 2;
                     break;
                 case '.':
-                    k = 'z' - 'a' +  3;
+                    k = 'z' - 'a' + 3;
                     break;
                 case '\'':
                     k = 'z' - 'a' + 4;
+                    break;
+                case 'é':
+                    k = 'z' - 'a' + 5;
+                    break;
+                case 'â':
+                    k = 'z' - 'a' + 6;
+                    break;
+                case 'è':
+                    k = 'z' - 'a' + 7;
+                    break;
+                case 'ö':
+                    k = 'z' - 'a' + 8;
+                    break;
+                case 'ô':
+                    k = 'z' - 'a' + 9;
+                    break;
+                case 'ê':
+                    k = 'z' - 'a' + 10;
+                    break;
+                case 'à':
+                    k = 'z' - 'a' + 11;
+                    break;
+                case 'ã':
+                    k = 'z' - 'a' + 12;
+                    break;
+                case 'ə':
+                    k = 'z' - 'a' + 13;
+                    break;
+                case 'û':
+                    k = 'z' - 'a' + 14;
                     break;
                 default:
                     k = (int) target.charAt(i) - 'a';
@@ -132,8 +222,11 @@ public class Trie {
             char a = input.charAt(i);
             if (a < 'a' || a > 'z') {
                 if (a != ' ' && a != '.' && a != '-' && a != '\'') {
-                    System.out.println("Please insert a word");
-                    return false;
+                    if (a != 'â' && a != 'ê' && a != 'é' && a != 'è' && a != 'ô' && a != 'ö' && a != 'à' && a != 'û'
+                            && a != 'ã' && a != 'ə') {
+                        System.out.println("Please insert a word");
+                        return false;
+                    }
                 }
             }
         }
