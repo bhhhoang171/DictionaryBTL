@@ -17,25 +17,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class DictionaryApplication extends JFrame {
-    private Dictionary dictionary = new Dictionary();
-    private DictionaryManagement DM = new DictionaryManagement();
+    private final Dictionary dictionary = new Dictionary();
+    private final DictionaryManagement DM = new DictionaryManagement();
     private final JTextField SearchingBox = new JTextField();
-    private final JList SearchingResults = new JList();
+    private final JList<String> SearchingResults = new JList<>();
     private final JSmartTextArea Definition = new JSmartTextArea();
-    private final JTextArea Filename = new JTextArea();
     private final JLabel Search = new JLabel("Search");
     private final JLabel Result = new JLabel("Searching Result");
     private final JLabel WordsExplain = new JLabel("Definition");
     private JPanel main;
-    private JButton OptionButton;
     private final TranslateApi translateApi = new TranslateApi();
-    private DefaultListModel model;
+    private final DefaultListModel<String> model = new DefaultListModel<>();
     private MP3Player player;
     private final java.awt.Font font = new java.awt.Font("Arial", 0, 20);
 
     DictionaryApplication() {
         super("Dictionary");
-        Image icon = Toolkit.getDefaultToolkit().getImage("icon\\dict_icon.png");
+        final Image icon = Toolkit.getDefaultToolkit().getImage("icon\\dict_icon.png");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setPreferredSize(new Dimension(1200, 900));
@@ -65,7 +63,7 @@ public class DictionaryApplication extends JFrame {
         WordsExplain.setFont(font);
         WordsExplain.setBounds(510, 73, 100, 20);
         this.add(WordsExplain);
-        model = new DefaultListModel();
+        //model = new DefaultListModel();
         SearchingResults.setFont(font);
         SearchingResults.setModel(model);
 
@@ -98,7 +96,7 @@ public class DictionaryApplication extends JFrame {
                 }
             }
         });
-        JScrollPane scroll = new JScrollPane(SearchingResults);
+        final JScrollPane scroll = new JScrollPane(SearchingResults);
         scroll.setBounds(0, 100, 450, 720);
         this.add(scroll);
         System.gc();
@@ -118,10 +116,9 @@ public class DictionaryApplication extends JFrame {
                     ArrayList<Word> find_words = T.getListOfWord();
                     Word selected_word = find_words.get(selected_index);
                     Definition.setText(selected_word.getWord_explain());
-                    Filename.setText(selected_word.getWord_target());
+                    filename = selected_word.getWord_target();
                 }
-                filename = Filename.getText();
-                Character prechar = Filename.getText().charAt(0);
+                char prechar = filename.charAt(0);
                 if (Character.isLowerCase(prechar)) {
                     prechar = Character.toUpperCase(prechar);
                 }
@@ -130,30 +127,30 @@ public class DictionaryApplication extends JFrame {
 
             }
         });
-        JScrollPane scroll1 = new JScrollPane(Definition);
+        final JScrollPane scroll1 = new JScrollPane(Definition);
         scroll1.setBounds(500, 100, 670, 720);
         this.add(scroll1);
         System.gc();
     }
 
     void createOptionButton() {
-        BufferedImage img;
+        final BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\option.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
         }
-        ImageIcon optionIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        OptionButton = new JButton(optionIcon);
+        final ImageIcon optionIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        final JButton OptionButton = new JButton(optionIcon);
         OptionButton.setBounds(1100, 20, 50, 50);
         OptionButton.setToolTipText("Option");
         final JPopupMenu optionMenu = new JPopupMenu("Option");
-        JMenuItem addMenuItem = new JMenuItem("Add a word");
+        final JMenuItem addMenuItem = new JMenuItem("Add a word");
         addMenuItem.addActionListener(e -> {
             String target;
             try {
-                target = JOptionPane.showInputDialog("Please insert a word you want to delete").toLowerCase()
+                target = JOptionPane.showInputDialog("Please insert a word you want to add").toLowerCase()
                         .trim();
             } catch (Exception er) {
                 return;
@@ -192,7 +189,7 @@ public class DictionaryApplication extends JFrame {
                 JOptionPane.showMessageDialog(getParent(), "Inserted successfully");
             }
         });
-        JMenuItem removeMenuItem = new JMenuItem("Remove a word");
+        final JMenuItem removeMenuItem = new JMenuItem("Remove a word");
         removeMenuItem.addActionListener(e -> {
             String target;
             try {
@@ -217,11 +214,11 @@ public class DictionaryApplication extends JFrame {
                 JOptionPane.showMessageDialog(getParent(), "Deleted successfully");
             }
         });
-        JMenuItem changeMenuItem = new JMenuItem("Change a word explain");
+        final JMenuItem changeMenuItem = new JMenuItem("Change a word explain");
         changeMenuItem.addActionListener(e -> {
             String target;
             try {
-                target = JOptionPane.showInputDialog("Please insert a word you want to delete").toLowerCase()
+                target = JOptionPane.showInputDialog("Please insert a word you want to change").toLowerCase()
                         .trim();
             } catch (Exception er) {
                 return;
@@ -266,21 +263,21 @@ public class DictionaryApplication extends JFrame {
     }
 
     void createShowButton() {
-        BufferedImage img;
+        final BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\show.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
         }
-        ImageIcon showIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        JButton show = new JButton(showIcon);
+        final ImageIcon showIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        final JButton show = new JButton(showIcon);
         show.setToolTipText("Show all words");
         show.setBounds(1050, 20, 50, 50);
         show.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SearchingBox.setText("");
+                SearchingBox.setText(null);
                 model.removeAllElements();
                 Trie T = dictionary.getTrieWord().find("");
                 if (T != null) {
@@ -296,15 +293,15 @@ public class DictionaryApplication extends JFrame {
     }
 
     void createExportButton() {
-        BufferedImage img;
+        final BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\export.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
         }
-        ImageIcon exportIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        JButton export = new JButton(exportIcon);
+        final ImageIcon exportIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        final JButton export = new JButton(exportIcon);
         export.setToolTipText("Export dictionary to file");
         export.setBounds(1000, 20, 50, 50);
         export.addMouseListener(new MouseAdapter() {
@@ -318,18 +315,19 @@ public class DictionaryApplication extends JFrame {
             }
         });
         this.add(export);
+        System.gc();
     }
 
     void createAudioSystem() {
-        BufferedImage audioImg;
+        final BufferedImage audioImg;
         try {
             audioImg = ImageIO.read(new File("icon\\audio.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
         }
-        ImageIcon audioIcon = new ImageIcon(audioImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        JButton audio = new JButton(audioIcon);
+        final ImageIcon audioIcon = new ImageIcon(audioImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        final JButton audio = new JButton(audioIcon);
         audio.setToolTipText("Listen");
         audio.setBounds(950, 20, 50, 50);
         audio.addMouseListener(new MouseAdapter() {
@@ -344,7 +342,7 @@ public class DictionaryApplication extends JFrame {
     }
 
     void creattranslateButton() {
-        JButton translateButton = new JButton("Translate sentence");
+        final JButton translateButton = new JButton("Translate sentence");
         translateButton.setToolTipText("Translate sentence using Google API");
         translateButton.setBounds(500, 30, 150, 35);
         translateButton.addMouseListener(new MouseAdapter() {
@@ -354,6 +352,7 @@ public class DictionaryApplication extends JFrame {
             }
         });
         this.add(translateButton);
+        System.gc();
     }
 
     void runApplication() {

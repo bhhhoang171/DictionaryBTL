@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Trie {
-    private Trie[] childen = new Trie[42];
+    private final Trie[] childen = new Trie[42];
     private Word word;
 
     public void setWord(Word _word) {

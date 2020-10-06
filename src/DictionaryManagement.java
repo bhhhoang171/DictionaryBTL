@@ -120,11 +120,7 @@ public class DictionaryManagement {
 
     public boolean dictionaryLookup(Dictionary Dic, String WordLookup) {
         Trie T = Dic.getTrieWord().find(WordLookup);
-        if (T == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return T != null;
     }
 
     public void deleteWord(Dictionary Dic) {
