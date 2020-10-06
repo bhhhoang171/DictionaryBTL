@@ -79,7 +79,9 @@ public class DictionaryManagement {
                 if (textInALine.isEmpty()) {
                     continue;
                 } else if (textInALine.charAt(0) == '@') {
-                    TrieWord.add(new Word(target, explain));
+                    if(!target.isEmpty()) {
+                        TrieWord.add(new Word(target, explain));
+                    }
                     for (int i = 0; i < textInALine.length(); ++i) {
                         if (textInALine.charAt(i) == '/') {
                             target = textInALine.substring(1, i - 1);

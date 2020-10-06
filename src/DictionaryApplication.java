@@ -1,20 +1,17 @@
-//import jaco.mp3.a.D;
-
 import com.sun.deploy.panel.JSmartTextArea;
-import jaco.mp3.player.MP3Player;
-
+import javazoom.jl.decoder.JavaLayerException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+
 
 public class DictionaryApplication extends JFrame {
     private final Dictionary dictionary = new Dictionary();
@@ -22,13 +19,13 @@ public class DictionaryApplication extends JFrame {
     private final JTextField SearchingBox = new JTextField();
     private final JList<String> SearchingResults = new JList<>();
     private final JSmartTextArea Definition = new JSmartTextArea();
+    private final JTextArea Filename = new JTextArea();
     private final JLabel Search = new JLabel("Search");
     private final JLabel Result = new JLabel("Searching Result");
     private final JLabel WordsExplain = new JLabel("Definition");
     private JPanel main;
     private final TranslateApi translateApi = new TranslateApi();
     private final DefaultListModel<String> model = new DefaultListModel<>();
-    private MP3Player player;
     private final java.awt.Font font = new java.awt.Font("Arial", 0, 20);
 
     DictionaryApplication() {
@@ -48,11 +45,14 @@ public class DictionaryApplication extends JFrame {
 
     void createSearchingBox() {
         SearchingBox.setBounds(0, 30, 450, 35);
+        Filename.setBounds(700,30,350,35);
         SearchingBox.setFont(font);
+        Filename.setFont(font);
         SearchingBox.setToolTipText("Prefix search");
         Search.setFont(font);
         Search.setBounds(10, 3, 100, 25);
         this.add(Search);
+        this.add(Filename);
         this.add(SearchingBox);
     }
 
@@ -60,13 +60,8 @@ public class DictionaryApplication extends JFrame {
         Result.setFont(font);
         Result.setBounds(10, 70, 200, 25);
         this.add(Result);
-        WordsExplain.setFont(font);
-        WordsExplain.setBounds(510, 73, 100, 20);
-        this.add(WordsExplain);
-        //model = new DefaultListModel();
         SearchingResults.setFont(font);
         SearchingResults.setModel(model);
-
         SearchingBox.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -96,41 +91,30 @@ public class DictionaryApplication extends JFrame {
                 }
             }
         });
-        final JScrollPane scroll = new JScrollPane(SearchingResults);
+        JScrollPane scroll = new JScrollPane(SearchingResults);
         scroll.setBounds(0, 100, 450, 720);
         this.add(scroll);
-        System.gc();
     }
 
     void createDefinition() {
+        WordsExplain.setFont(font);
+        WordsExplain.setBounds(580, 73, 100, 20);
+        this.add(WordsExplain);
         Definition.setFont(font);
-        SearchingResults.addListSelectionListener(new ListSelectionListener() {
-            final String defaultpath = "Longman 2005 Voice Package - British";
-            String filename = "";
-            String filepath = "";
-
-            public void valueChanged(ListSelectionEvent e) {
-                int selected_index = SearchingResults.getSelectedIndex();
-                Trie T = dictionary.getTrieWord().find(SearchingBox.getText());
-                if (T != null && selected_index >= 0) {
-                    ArrayList<Word> find_words = T.getListOfWord();
-                    Word selected_word = find_words.get(selected_index);
-                    Definition.setText(selected_word.getWord_explain());
-                    filename = selected_word.getWord_target();
-                }
-                char prechar = filename.charAt(0);
-                if (Character.isLowerCase(prechar)) {
-                    prechar = Character.toUpperCase(prechar);
-                }
-                filepath = defaultpath + "\\" + prechar + "\\" + filename + ".mp3";
-                player = new MP3Player(new File(filepath));
-
+        SearchingResults.addListSelectionListener(e -> {
+            int selected_index = SearchingResults.getSelectedIndex();
+            Trie T = dictionary.getTrieWord().find(SearchingBox.getText());
+            if (T != null && selected_index >= 0) {
+                ArrayList<Word> find_words = T.getListOfWord();
+                Word selected_word = find_words.get(selected_index);
+                Definition.removeAll();
+                Definition.setText(selected_word.getWord_explain());
+                Filename.setText(selected_word.getWord_target());
             }
         });
-        final JScrollPane scroll1 = new JScrollPane(Definition);
-        scroll1.setBounds(500, 100, 670, 720);
+        JScrollPane scroll1 = new JScrollPane(Definition);
+        scroll1.setBounds(570, 100, 600, 720);
         this.add(scroll1);
-        System.gc();
     }
 
     void createOptionButton() {
@@ -141,9 +125,9 @@ public class DictionaryApplication extends JFrame {
             JOptionPane.showMessageDialog(this, e);
             return;
         }
-        final ImageIcon optionIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        ImageIcon optionIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         final JButton OptionButton = new JButton(optionIcon);
-        OptionButton.setBounds(1100, 20, 50, 50);
+        OptionButton.setBounds(485, 100, 50, 50);
         OptionButton.setToolTipText("Option");
         final JPopupMenu optionMenu = new JPopupMenu("Option");
         final JMenuItem addMenuItem = new JMenuItem("Add a word");
@@ -259,7 +243,6 @@ public class DictionaryApplication extends JFrame {
             }
         });
         this.add(OptionButton);
-        System.gc();
     }
 
     void createShowButton() {
@@ -273,11 +256,11 @@ public class DictionaryApplication extends JFrame {
         final ImageIcon showIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         final JButton show = new JButton(showIcon);
         show.setToolTipText("Show all words");
-        show.setBounds(1050, 20, 50, 50);
+        show.setBounds(485, 150, 50, 50);
         show.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SearchingBox.setText(null);
+                SearchingBox.setText("");
                 model.removeAllElements();
                 Trie T = dictionary.getTrieWord().find("");
                 if (T != null) {
@@ -289,7 +272,6 @@ public class DictionaryApplication extends JFrame {
             }
         });
         this.add(show);
-        System.gc();
     }
 
     void createExportButton() {
@@ -303,7 +285,7 @@ public class DictionaryApplication extends JFrame {
         final ImageIcon exportIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         final JButton export = new JButton(exportIcon);
         export.setToolTipText("Export dictionary to file");
-        export.setBounds(1000, 20, 50, 50);
+        export.setBounds(485, 200, 50, 50);
         export.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -315,30 +297,57 @@ public class DictionaryApplication extends JFrame {
             }
         });
         this.add(export);
-        System.gc();
     }
 
     void createAudioSystem() {
         final BufferedImage audioImg;
+        final JLabel UKlabel = new JLabel("UK");
+        UKlabel.setBounds(1110,0,50,50);
         try {
             audioImg = ImageIO.read(new File("icon\\audio.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
         }
-        final ImageIcon audioIcon = new ImageIcon(audioImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-        final JButton audio = new JButton(audioIcon);
-        audio.setToolTipText("Listen");
-        audio.setBounds(950, 20, 50, 50);
-        audio.addMouseListener(new MouseAdapter() {
+        final ImageIcon audioIcon = new ImageIcon(audioImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+        final JButton UKbutton = new JButton(audioIcon);
+        UKbutton.setToolTipText("Listen");
+        UKbutton.setBounds(1070, 10, 30, 30);
+        PronunciationAPI p = new PronunciationAPI();
+        UKbutton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                player.play();
+                try {
+                    InputStream inp = p.getAudio(Filename.getText(),"en-uk");
+                    p.play(inp);
+                } catch (IOException | JavaLayerException ioException) {
+                    ioException.printStackTrace();
+                }
+
+            }
+
+        });
+        final JLabel USlabel = new JLabel("US");
+        USlabel.setBounds(1110,40,50,50);
+        final JButton USbutton = new JButton(audioIcon);
+        USbutton.setToolTipText("Listen");
+        USbutton.setBounds(1070, 50, 30, 30);
+        USbutton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    InputStream inp = p.getAudio(Filename.getText(),"en-us");
+                    p.play(inp);
+                } catch (IOException | JavaLayerException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         });
-        this.add(audio);
+        this.add(UKbutton);
+        this.add(UKlabel);
+        this.add(USbutton);
+        this.add(USlabel);
         this.pack();
-        System.gc();
     }
 
     void creattranslateButton() {
@@ -352,7 +361,6 @@ public class DictionaryApplication extends JFrame {
             }
         });
         this.add(translateButton);
-        System.gc();
     }
 
     void runApplication() {

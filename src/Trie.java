@@ -22,16 +22,16 @@ public class Trie {
         for (int i = 0; i < target.length(); i++) {
             switch (target.charAt(i)) {
                 case ' ':
-                    k = 'z' - 'a' + 1;
+                    k = 0;
                     break;
                 case '-':
-                    k = 'z' - 'a' + 2;
+                    k = 2;
                     break;
                 case '.':
-                    k = 'z' - 'a' + 3;
+                    k = 1;
                     break;
                 case '\'':
-                    k = 'z' - 'a' + 4;
+                    k = 3;
                     break;
                 case 'é':
                     k = 'z' - 'a' + 5;
@@ -64,7 +64,7 @@ public class Trie {
                     k = 'z' - 'a' + 14;
                     break;
                 default:
-                    k = (int) target.charAt(i) - 'a';
+                    k = (int) target.charAt(i) - 'a' + 4;
                     break;
             }
             if (p.childen[k] == null) {
@@ -84,16 +84,16 @@ public class Trie {
         for (int i = 0; i < target.length(); ++i) {
             switch (target.charAt(i)) {
                 case ' ':
-                    k = 'z' - 'a' + 1;
+                    k = 0;
                     break;
                 case '-':
-                    k = 'z' - 'a' + 2;
+                    k = 2;
                     break;
                 case '.':
-                    k = 'z' - 'a' + 3;
+                    k = 1;
                     break;
                 case '\'':
-                    k = 'z' - 'a' + 4;
+                    k = 3;
                     break;
                 case 'é':
                     k = 'z' - 'a' + 5;
@@ -126,7 +126,7 @@ public class Trie {
                     k = 'z' - 'a' + 14;
                     break;
                 default:
-                    k = (int) target.charAt(i) - 'a';
+                    k = (int) target.charAt(i) - 'a' + 4;
                     break;
             }
             if (p.childen[k] == null) {
@@ -146,16 +146,16 @@ public class Trie {
         for (int i = 0; i < target.length(); ++i) {
             switch (target.charAt(i)) {
                 case ' ':
-                    k = 'z' - 'a' + 1;
+                    k = 0;
                     break;
                 case '-':
-                    k = 'z' - 'a' + 2;
+                    k = 2;
                     break;
                 case '.':
-                    k = 'z' - 'a' + 3;
+                    k = 1;
                     break;
                 case '\'':
-                    k = 'z' - 'a' + 4;
+                    k = 3;
                     break;
                 case 'é':
                     k = 'z' - 'a' + 5;
@@ -188,7 +188,7 @@ public class Trie {
                     k = 'z' - 'a' + 14;
                     break;
                 default:
-                    k = (int) target.charAt(i) - 'a';
+                    k = (int) target.charAt(i) - 'a' + 4;
                     break;
             }
             if (p.childen[k] == null) {
@@ -209,7 +209,7 @@ public class Trie {
         if (T.word != null) {
             listOfWord.add(T.word);
         }
-        for (int i = 0; i < 30; ++i) {
+        for (int i = 0; i < 42; ++i) {
             if (T.childen[i] != null) {
                 listed(T.childen[i], listOfWord);
             }
