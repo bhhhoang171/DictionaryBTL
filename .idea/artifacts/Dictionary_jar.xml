@@ -4,6 +4,7 @@
     <root id="archive" name="Dictionary.jar">
       <element id="module-output" name="Dictionary" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../jaco/jaco-mp3-player-0.9.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../JLayer1.0.1/jl1.0.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
