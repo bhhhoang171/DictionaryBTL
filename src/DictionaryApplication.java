@@ -218,10 +218,10 @@ public class DictionaryApplication extends JFrame {
                 okButton.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        String explain = jTextPane.getText();
-                        while (explain.isEmpty()) {
+                        String[] explain = jTextPane.getText().split("\\n");
+                        if (explain[0].isEmpty() && explain.length == 1) {
                             JOptionPane.showMessageDialog(getParent(), "Explain can not be empty");
-                            explain = jTextPane.getText();
+                            return;
                         }
                         int output = JOptionPane.showConfirmDialog(getParent(), "Are you sure?", "Confirmation",
                                 JOptionPane.YES_NO_OPTION);
@@ -291,36 +291,13 @@ public class DictionaryApplication extends JFrame {
         editButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String target;
-                try {
-                    target = JOptionPane.showInputDialog("Please insert a word you want to change definition").trim();
-                } catch (Exception er) {
+                String target = Filename.getText();
+                if (target.isEmpty()) {
+                    JOptionPane.showMessageDialog(getParent(), "Please choose a word from list");
                     return;
                 }
-                while (target.isEmpty()) {
-                    JOptionPane.showMessageDialog(getParent(), "Please insert a word");
-                    target = JOptionPane.showInputDialog("Please insert a word you want to change definition").trim();
-                }
-                for (int i = 0; i < target.length(); ++i) {
-                    char a = target.charAt(i);
-                    if (a >= 'a' && a <= 'z') {
-                        continue;
-                    } else if (a >= 'A' && a <= 'Z') {
-                        continue;
-                    } else if (a >= '0' && a <= '9'){
-                        continue;
-                    } else if (a == ' ' || a == '.' || a == '-' || a == '\'' || a == '(' || a == ')') {
-                        continue;
-                    } else if (a == 'â' || a == 'ê' || a == 'é' || a == 'è' || a == 'ô' || a == 'ö' || a == 'à' || a == 'û'
-                            || a == 'ã' || a == 'ə') {
-                        continue;
-                    } else {
-                        JOptionPane.showMessageDialog(getParent(), "This word is not accepted!");
-                        return;
-                    }
-                }
                 if (!DM.dictionaryLookup(dictionary, target)) {
-                    JOptionPane.showMessageDialog(getParent(), "Not found");
+                    JOptionPane.showMessageDialog(getParent(), "Not found!");
                     return;
                 }
                 JFrame jFrame = new JFrame("Input");
@@ -351,10 +328,11 @@ public class DictionaryApplication extends JFrame {
                 okButton.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        String explain = jTextPane.getText();
-                        while (explain.isEmpty()) {
+                        String[] explain = jTextPane.getText().split("\\n");
+                        System.out.println(explain.length);
+                        if (explain[0].isEmpty() && explain.length == 1) {
                             JOptionPane.showMessageDialog(getParent(), "Explain can not be empty");
-                            explain = jTextPane.getText();
+                            return;
                         }
                         int output = JOptionPane.showConfirmDialog(getParent(), "Are you sure?", "Confirmation",
                                 JOptionPane.YES_NO_OPTION);

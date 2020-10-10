@@ -34,11 +34,13 @@ public class DictionaryManagement {
         }
     }
 
-    public void addWord(Dictionary Dic, String target, String explain) {
+    public void addWord(Dictionary Dic, String target, String[] explain) {
         Trie TrieWord = Dic.getTrieWord();
-        String s = "<html><font size=\"+2\"><i>" + target +"</i></font><br/><ul><li><font color='#cc0000' size=\"+1\"><b>";
-        explain = s + explain + "</b></font></li></ul></html>";
-        TrieWord.add(new Word(target, explain));
+        StringBuilder res = new StringBuilder("<html><font size=\"+2\"><i>" + target + "</i></font>");
+        for (String line : explain){
+            res.append("<br/><ul><li><font color='#cc0000' size=\"+1\"><b>").append(line).append("</b></font></li></ul>");
+        }
+        TrieWord.add(new Word(target, res + "</html>"));
     }
 
     public void insertFromFile(Dictionary Dic) {
@@ -116,7 +118,9 @@ public class DictionaryManagement {
         Trie T = Dic.getTrieWord().find(WordLookup);
         if (T == null) {
             return false;
-        } else return T.getWord() != null;
+        } else {
+            return T.getWord() != null;
+        }
     }
 
     public void deleteWord(Dictionary Dic) {
@@ -145,15 +149,16 @@ public class DictionaryManagement {
             T.getWord().setWord_explain(ExplainChange);
     }
 
-    public void changeWord(Dictionary Dic, String WordChange, String ExplainChange) {
+    public void changeWord(Dictionary Dic, String WordChange, String[] ExplainChange) {
         Trie T = Dic.getTrieWord().find(WordChange);
+        StringBuilder res = new StringBuilder("<html><font size=\"+2\"><i>" + WordChange + "</i></font>");
         if (T == null) {
             System.out.println("The word is not found!");
-        } else {
-            String s = "<html><font size=\"+2\"><i>" + WordChange +"</i></font><br/><ul><li><font color='#cc0000' size=\"+1\"><b>";
-            ExplainChange = s + ExplainChange + "</b></font></li></ul></html>";
-            T.getWord().setWord_explain(ExplainChange);
+            return;
+        } else for (String line : ExplainChange){
+            res.append("<br/><ul><li><font color='#cc0000' size=\"+1\"><b>").append(line).append("</b></font></li></ul>");
         }
+        T.getWord().setWord_explain(res + "</html>");
     }
 
     public void dictionaryExportToFile(Dictionary Dic) {
