@@ -141,6 +141,26 @@ public class DictionaryApplication extends JFrame {
                 }
             }
         });
+        SearchingResults.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    int selected_index = SearchingResults.getSelectedIndex();
+                    Trie T = dictionary.getTrieWord().find(SearchingBox.getText());
+                    if (T != null && selected_index >= 0) {
+                        ArrayList<Word> find_words = T.getListOfWord();
+                        Word selected_word = find_words.get(selected_index);
+                        Definition.setText(selected_word.getWord_explain());
+                        try {
+                            Filename.getStyledDocument().remove(0, Filename.getStyledDocument().getLength());
+                            Filename.getStyledDocument().insertString(0, selected_word.getWord_target(), style);
+                        } catch (BadLocationException badLocationException) {
+                            badLocationException.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
         JScrollPane scroll1 = new JScrollPane(Definition);
         scroll1.setBounds(470, 160, 600, 708);
         this.add(scroll1);
