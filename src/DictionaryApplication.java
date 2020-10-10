@@ -513,7 +513,6 @@ public class DictionaryApplication extends JFrame {
         translateButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //translateApi.setLocationRelativeTo(null);
                 translateApi.runTranslateApi();
             }
         });

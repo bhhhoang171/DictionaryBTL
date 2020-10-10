@@ -36,8 +36,8 @@ public class DictionaryManagement {
 
     public void addWord(Dictionary Dic, String target, String explain) {
         Trie TrieWord = Dic.getTrieWord();
-        target = target.toLowerCase();
-        explain = explain.toLowerCase();
+        String s = "<html><font size=\"+2\"><i>" + target +"</i></font><br/><ul><li><font color='#cc0000' size=\"+1\"><b>";
+        explain = s + explain + "</b></font></li></ul></html>";
         TrieWord.add(new Word(target, explain));
     }
 
@@ -150,6 +150,8 @@ public class DictionaryManagement {
         if (T == null) {
             System.out.println("The word is not found!");
         } else {
+            String s = "<html><font size=\"+2\"><i>" + WordChange +"</i></font><br/><ul><li><font color='#cc0000' size=\"+1\"><b>";
+            ExplainChange = s + ExplainChange + "</b></font></li></ul></html>";
             T.getWord().setWord_explain(ExplainChange);
         }
     }
