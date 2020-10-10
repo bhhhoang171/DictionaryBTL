@@ -28,7 +28,6 @@ public class DictionaryApplication extends JFrame {
     private final JLabel Result = new JLabel("<html><font face='Arial' size=\"+2\">Searching results</font></html>");
     private final JLabel WordsExplain = new JLabel("<html><font face='Arial' size=\"+2\">Definition</font></html>");
     private JPanel main;
-    private final TranslateApi translateApi = new TranslateApi();
     private final DefaultListModel<String> model = new DefaultListModel<>();
     private final java.awt.Font font = new java.awt.Font("Arial", Font.PLAIN, 20);
 
@@ -220,7 +219,7 @@ public class DictionaryApplication extends JFrame {
                     public void mouseClicked(MouseEvent e) {
                         String[] explain = jTextPane.getText().split("\\n");
                         if (explain[0].isEmpty() && explain.length == 1) {
-                            JOptionPane.showMessageDialog(getParent(), "Explain can not be empty");
+                            JOptionPane.showMessageDialog(getParent(), "Explain should not be empty");
                             return;
                         }
                         int output = JOptionPane.showConfirmDialog(getParent(), "Are you sure?", "Confirmation",
@@ -329,9 +328,8 @@ public class DictionaryApplication extends JFrame {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         String[] explain = jTextPane.getText().split("\\n");
-                        System.out.println(explain.length);
                         if (explain[0].isEmpty() && explain.length == 1) {
-                            JOptionPane.showMessageDialog(getParent(), "Explain can not be empty");
+                            JOptionPane.showMessageDialog(getParent(), "Explain should not be empty");
                             return;
                         }
                         int output = JOptionPane.showConfirmDialog(getParent(), "Are you sure?", "Confirmation",
@@ -491,7 +489,16 @@ public class DictionaryApplication extends JFrame {
         translateButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                TranslateApi translateApi = new TranslateApi();
                 translateApi.runTranslateApi();
+                DictionaryApplication.super.setEnabled(false);
+                translateApi.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        DictionaryApplication.super.setEnabled(true);
+                        translateApi.dispose();
+                    }
+                });
             }
         });
         this.add(translateButton);

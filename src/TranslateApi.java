@@ -25,7 +25,7 @@ public class TranslateApi extends JFrame {
 
     public TranslateApi() {
         super("Translate API");
-        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(null);
         this.setPreferredSize(new Dimension(600, 400));
         this.setUndecorated(true);
