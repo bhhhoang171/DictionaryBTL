@@ -1,16 +1,19 @@
 import javazoom.jl.decoder.JavaLayerException;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,11 +47,14 @@ public class DictionaryApplication extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         DM.insertFromFile1(dictionary);
+        Definition.setContentType("text/html");
+        Definition.setEditable(false);
+        Definition.setText(information());
         this.setVisible(true);
     }
 
     void createSearchingBox() {
-        Filename.setBounds(470,100,600,60);
+        Filename.setBounds(470, 100, 600, 60);
         Filename.setFont(new java.awt.Font("Arial", Font.PLAIN, 30));
         style = Filename.addStyle("", null);
         StyleConstants.setForeground(style, Color.BLUE);
@@ -93,7 +99,7 @@ public class DictionaryApplication extends JFrame {
         SearchingBox.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     model.clear();
                     String find_word = SearchingBox.getText();
                     Trie T = dictionary.getTrieWord().find(find_word);
@@ -116,8 +122,6 @@ public class DictionaryApplication extends JFrame {
     void createDefinition() {
         WordsExplain.setBounds(480, 68, 300, 25);
         this.add(WordsExplain);
-        Definition.setContentType("text/html");
-        Definition.setEditable(false);
         SearchingResults.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         SearchingResults.addMouseListener(new MouseAdapter() {
             @Override
@@ -173,7 +177,7 @@ public class DictionaryApplication extends JFrame {
                         continue;
                     } else if (a >= 'A' && a <= 'Z') {
                         continue;
-                    } else if (a >= '0' && a <= '9'){
+                    } else if (a >= '0' && a <= '9') {
                         continue;
                     } else if (a == ' ' || a == '.' || a == '-' || a == '\'' || a == '(' || a == ')') {
                         continue;
@@ -323,7 +327,6 @@ public class DictionaryApplication extends JFrame {
                 jFrame.add(jScrollPane);
                 JButton okButton = new JButton("OK");
                 okButton.setBounds(270, 300, 60, 35);
-                String finalTarget = target;
                 okButton.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -335,7 +338,7 @@ public class DictionaryApplication extends JFrame {
                         int output = JOptionPane.showConfirmDialog(getParent(), "Are you sure?", "Confirmation",
                                 JOptionPane.YES_NO_OPTION);
                         if (output == JOptionPane.YES_OPTION) {
-                            DM.changeWord(dictionary, finalTarget, explain);
+                            DM.changeWord(dictionary, target, explain);
                             JOptionPane.showMessageDialog(getParent(), "Changed successfully");
                         }
                         DictionaryApplication.super.setEnabled(true);
@@ -361,8 +364,51 @@ public class DictionaryApplication extends JFrame {
         ImageIcon infoIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         final JButton infoButton = new JButton(infoIcon);
         infoButton.setBounds(1110, 750, 50, 50);
-        infoButton.setToolTipText("Option");
+        infoButton.setToolTipText("Information");
+        infoButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Filename.getStyledDocument().remove(0, Filename.getStyledDocument().getLength());
+                } catch (BadLocationException badLocationException) {
+                    badLocationException.printStackTrace();
+                }
+                Definition.setText(information());
+            }
+        });
+        Definition.addHyperlinkListener(e -> {
+            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                if(Desktop.isDesktopSupported()) {
+                    try {
+                        Desktop.getDesktop().browse(e.getURL().toURI());
+                    } catch (IOException | URISyntaxException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
+            }
+        });
         this.add(infoButton);
+    }
+
+    private String information() {
+        String s = "<html><font face='Arial' size=\"+4\">ⓘ INFORMATION</font>";
+        s += "<br><br><font face='Arial' size=\"+3\">Author</font>"
+                + "<br><ul><li><font face='Arial' color='#ff0000' size=\"+1\"> Bùi Huy Hoàng</font></li>"
+                + "<br><li><font face='Arial' color='#ff0000' size=\"+1\"> Trần Minh Hoàng</font></li></ul>"
+                + "<br><font face='Arial' size=\"+3\">Description</font>"
+                + "<br><ul><li><font face='Arial' size=\"+1\"> A simple English-Vietnamese Dictionary built on java</font></li></ul>"
+                + "<br><font face='Arial' size=\"+3\">Source</font>"
+                + "<br><ul><li><font face='Arial' size=\"+1\"><a href=\"https://github.com/bhhhoang171/DictionaryBTL\">"
+                + "https://github.com/bhhhoang171/DictionaryBTL</a></font></li></ul>"
+                + "<br><font face='Arial' size=\"+3\">References</font>"
+                + "<br><ul><li><font face='Arial' size=\"+1\">Translator API: <a href="
+                + "\"https://stackoverflow.com/questions/8147284/how-to-use-google-translate-api-in-my-java-application\">"
+                + "https://stackoverflow.com/questions...</a></font></li>"
+                + "<br><li><font face='Arial' size=\"+1\">Text to speech API: <a href=\"https://github.com/wihoho/java-google-translate-text-to-speech\">"
+                + "https://github.com/wihoho/java-google...</a></font></li>"
+                + "<br><li><font face='Arial' size=\"+1\">Data: Lingoes data from <a href=\"https://drive.google.com/file/d/0B4nqOsoZZZrUa1VLenQ5eW13NDA/view?usp=sharing\">"
+                + "https://drive.google.com/file/d/...</a></font></li></ul>";
+        return s + "</html>";
     }
 
     void createShowButton() {
@@ -428,7 +474,7 @@ public class DictionaryApplication extends JFrame {
     void createAudioSystem() {
         final BufferedImage audioImg;
         final JLabel UKlabel = new JLabel("<html><font face='Arial' size=\"+1\">UK</font></html>");
-        UKlabel.setBounds(1125,120,50,30);
+        UKlabel.setBounds(1125, 120, 50, 30);
         try {
             audioImg = ImageIO.read(new File("icon\\audio.png"));
         } catch (IOException e) {
@@ -444,7 +490,7 @@ public class DictionaryApplication extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    InputStream inp = p.getAudio(Filename.getText(),"en-uk");
+                    InputStream inp = p.getAudio(Filename.getText(), "en-uk");
                     p.play(inp);
                 } catch (IOException | JavaLayerException ioException) {
                     ioException.printStackTrace();
@@ -453,7 +499,7 @@ public class DictionaryApplication extends JFrame {
 
         });
         final JLabel USlabel = new JLabel("<html><font face='Arial' size=\"+1\">US</font></html>");
-        USlabel.setBounds(1125,220,50,30);
+        USlabel.setBounds(1125, 220, 50, 30);
         final JButton USbutton = new JButton(audioIcon);
         USbutton.setToolTipText("Listen");
         USbutton.setBounds(1110, 250, 50, 50);
@@ -461,7 +507,7 @@ public class DictionaryApplication extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    InputStream inp = p.getAudio(Filename.getText(),"en-us");
+                    InputStream inp = p.getAudio(Filename.getText(), "en-us");
                     p.play(inp);
                 } catch (IOException | JavaLayerException ioException) {
                     ioException.printStackTrace();

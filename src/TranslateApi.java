@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -91,17 +92,10 @@ public class TranslateApi extends JFrame {
                     break;
                 }
                 URL url = new URL(link + URLEncoder.encode(a, "UTF8"));
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                Scanner resScanner = new Scanner(connection.getInputStream(), "UTF8");
-                String b = resScanner.nextLine();
-                //System.out.println(b);
+                URLConnection connection =  url.openConnection();
+                Scanner sc = new Scanner(connection.getInputStream(), "UTF8");
+                String b = sc.nextLine();
                 b = b.substring(3, b.length() - 12);
-                for (int i = 0; i < b.length(); i++) {
-                    if (b.charAt(i) == ',') {
-                        b = b.substring(0, i) + b.substring(i + 1);
-                    }
-                }
                 int quoteCount = 0;
                 for (int i = 0; i < b.length(); i++) {
                     if (b.charAt(i) == '"') {
