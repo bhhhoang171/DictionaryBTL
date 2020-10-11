@@ -1,6 +1,4 @@
-import com.sun.deploy.panel.JSmartTextArea;
 import javazoom.jl.decoder.JavaLayerException;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,14 +10,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TranslateApi extends JFrame {
     private JTextPane translateBox;
-    private JSmartTextArea definition;
+    private JEditorPane definition;
     private final JLabel en = new JLabel("<html><font face='Arial' size=\"+2\">English</font></html>");
     private final JLabel vi = new JLabel("<html><font face='Arial' size=\"+2\">Vietnamese</font></html>");
     private final JButton translateButton = new JButton("Translate");
@@ -50,7 +47,8 @@ public class TranslateApi extends JFrame {
     private void createDefinitionBox() {
         vi.setBounds(305, 10, 200, 30);
         this.add(vi);
-        definition = new JSmartTextArea();
+        definition = new JEditorPane();
+        definition.setEditable(false);
         definition.setFont(new java.awt.Font("Arial", Font.PLAIN, 16));
         JScrollPane scroll1 = new JScrollPane(definition);
         scroll1.setBounds(300, 50, 280, 300);
@@ -92,7 +90,7 @@ public class TranslateApi extends JFrame {
                     break;
                 }
                 URL url = new URL(link + URLEncoder.encode(a, "UTF8"));
-                URLConnection connection =  url.openConnection();
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 Scanner sc = new Scanner(connection.getInputStream(), "UTF8");
                 String b = sc.nextLine();
                 b = b.substring(3, b.length() - 12);
