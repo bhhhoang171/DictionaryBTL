@@ -1,9 +1,7 @@
 import javazoom.jl.decoder.JavaLayerException;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
@@ -15,9 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 public class DictionaryApplication extends JFrame {
     private final Dictionary dictionary = new Dictionary();
@@ -34,10 +29,13 @@ public class DictionaryApplication extends JFrame {
     private final DefaultListModel<String> model = new DefaultListModel<>();
     private final java.awt.Font font = new java.awt.Font("Arial", Font.PLAIN, 20);
 
-    DictionaryApplication() {
+    /**
+     * Intialize Dictionary application.
+     */
+    public DictionaryApplication() {
         super("Dictionary");
         final Image icon = Toolkit.getDefaultToolkit().getImage("icon\\dict_icon.png");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(null);
         this.setPreferredSize(new Dimension(1200, 900));
         this.setUndecorated(true);
@@ -46,14 +44,17 @@ public class DictionaryApplication extends JFrame {
         this.getContentPane().setBackground(Color.decode("#43adc4"));
         this.pack();
         this.setLocationRelativeTo(null);
-        DM.insertFromFile1(dictionary);
+        DM.insertFromFile(dictionary);
         Definition.setContentType("text/html");
         Definition.setEditable(false);
         Definition.setText(information());
         this.setVisible(true);
     }
 
-    void createSearchingBox() {
+    /**
+     * Create search box and handle event.
+     */
+    private void createSearchingBox() {
         Filename.setBounds(470, 100, 600, 60);
         Filename.setFont(new java.awt.Font("Arial", Font.PLAIN, 30));
         style = Filename.addStyle("", null);
@@ -67,7 +68,10 @@ public class DictionaryApplication extends JFrame {
         this.add(SearchingBox);
     }
 
-    void createSearchingResults() {
+    /**
+     * Create searching result box + search button and handle event.
+     */
+    private void createSearchingResults() {
         Result.setBounds(10, 66, 300, 30);
         this.add(Result);
         final BufferedImage img;
@@ -119,7 +123,10 @@ public class DictionaryApplication extends JFrame {
         this.add(scroll);
     }
 
-    void createDefinition() {
+    /**
+     * Create definition box and handle event.
+     */
+    private void createDefinition() {
         WordsExplain.setBounds(480, 68, 300, 25);
         this.add(WordsExplain);
         SearchingResults.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -166,7 +173,10 @@ public class DictionaryApplication extends JFrame {
         this.add(scroll1);
     }
 
-    void createAddButton() {
+    /**
+     * Create add button and handle event.
+     */
+    private void createAddButton() {
         final BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\add.png"));
@@ -201,8 +211,8 @@ public class DictionaryApplication extends JFrame {
                         continue;
                     } else if (a == ' ' || a == '.' || a == '-' || a == '\'' || a == '(' || a == ')') {
                         continue;
-                    } else if (a == 'â' || a == 'ê' || a == 'é' || a == 'è' || a == 'ô' || a == 'ö' || a == 'à' || a == 'û'
-                            || a == 'ã' || a == 'ə') {
+                    } else if (a == 'â' || a == 'ê' || a == 'é' || a == 'è' || a == 'ô' || a == 'ö' || a == 'à'
+                            || a == 'û' || a == 'ã' || a == 'ə') {
                         continue;
                     } else {
                         JOptionPane.showMessageDialog(getParent(), "This word is not accepted!");
@@ -264,7 +274,10 @@ public class DictionaryApplication extends JFrame {
         this.add(addButton);
     }
 
-    void createDeleteButton() {
+    /**
+     * Create delete button and handle event.
+     */
+    private void createDeleteButton() {
         final BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\delete.png"));
@@ -299,7 +312,10 @@ public class DictionaryApplication extends JFrame {
         this.add(deleteButton);
     }
 
-    void createEditButton() {
+    /**
+     * Create edit button and handle event.
+     */
+    private void createEditButton() {
         final BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\edit.png"));
@@ -373,7 +389,10 @@ public class DictionaryApplication extends JFrame {
         this.add(editButton);
     }
 
-    void createInfoButton() {
+    /**
+     * Create information button and handle event.
+     */
+    private void createInfoButton() {
         final BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\info.png"));
@@ -398,7 +417,7 @@ public class DictionaryApplication extends JFrame {
         });
         Definition.addHyperlinkListener(e -> {
             if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                if(Desktop.isDesktopSupported()) {
+                if (Desktop.isDesktopSupported()) {
                     try {
                         Desktop.getDesktop().browse(e.getURL().toURI());
                     } catch (IOException | URISyntaxException ioException) {
@@ -410,6 +429,9 @@ public class DictionaryApplication extends JFrame {
         this.add(infoButton);
     }
 
+    /**
+     * Create information.
+     */
     private String information() {
         String s = "<html><font face='Arial' size=\"+4\">ⓘ INFORMATION</font>";
         s += "<br><br><font face='Arial' size=\"+3\">Author</font>"
@@ -421,17 +443,17 @@ public class DictionaryApplication extends JFrame {
                 + "<br><ul><li><font face='Arial' size=\"+1\"><a href=\"https://github.com/bhhhoang171/DictionaryBTL\">"
                 + "https://github.com/bhhhoang171/DictionaryBTL</a></font></li></ul>"
                 + "<br><font face='Arial' size=\"+3\">References</font>"
-                + "<br><ul><li><font face='Arial' size=\"+1\">Translator API: <a href="
-                + "\"https://stackoverflow.com/questions/8147284/how-to-use-google-translate-api-in-my-java-application\">"
-                + "https://stackoverflow.com/questions...</a></font></li>"
-                + "<br><li><font face='Arial' size=\"+1\">Text to speech API: <a href=\"https://github.com/wihoho/java-google-translate-text-to-speech\">"
+                + "<br><ul><li><font face='Arial' size=\"+1\">Text to speech API: <a href=\"https://github.com/wihoho/java-google-translate-text-to-speech\">"
                 + "https://github.com/wihoho/java-google...</a></font></li>"
                 + "<br><li><font face='Arial' size=\"+1\">Data: Lingoes data from <a href=\"https://drive.google.com/file/d/0B4nqOsoZZZrUa1VLenQ5eW13NDA/view?usp=sharing\">"
                 + "https://drive.google.com/file/d/...</a></font></li></ul>";
         return s + "</html>";
     }
 
-    void createShowButton() {
+    /**
+     * Create show all words button and handle event.
+     */
+    private void createShowButton() {
         final JLabel showLabel = new JLabel("<html><font face='Arial' size=\"+1\">Show all words</font></html>");
         showLabel.setBounds(690, 25, 200, 40);
         this.add(showLabel);
@@ -463,7 +485,10 @@ public class DictionaryApplication extends JFrame {
         this.add(show);
     }
 
-    void createExportButton() {
+    /**
+     * Create export button and handle event.
+     */
+    private void createExportButton() {
         final JLabel exportLabel = new JLabel("<html><font face='Arial' size=\"+1\">Export to file</font></html>");
         exportLabel.setBounds(965, 30, 300, 30);
         this.add(exportLabel);
@@ -491,7 +516,10 @@ public class DictionaryApplication extends JFrame {
         this.add(export);
     }
 
-    void createAudioSystem() {
+    /**
+     * Create audio button and handle event.
+     */
+    private void createAudioSystem() {
         final BufferedImage audioImg;
         final JLabel UKlabel = new JLabel("<html><font face='Arial' size=\"+1\">UK</font></html>");
         UKlabel.setBounds(1125, 120, 50, 30);
@@ -540,7 +568,10 @@ public class DictionaryApplication extends JFrame {
         this.add(USlabel);
     }
 
-    void createTranslateButton() {
+    /**
+     * Create translator API button and handle event.
+     */
+    private void createTranslateButton() {
         final BufferedImage img;
         try {
             img = ImageIO.read(new File("icon\\translateapi.png"));
@@ -570,7 +601,10 @@ public class DictionaryApplication extends JFrame {
         this.add(translateButton);
     }
 
-    void runApplication() {
+    /**
+     * Run dictionary application.
+     */
+    public void runApplication() {
         this.createSearchingBox();
         this.createSearchingResults();
         this.createDefinition();
@@ -582,15 +616,5 @@ public class DictionaryApplication extends JFrame {
         this.createDeleteButton();
         this.createEditButton();
         this.createInfoButton();
-    }
-
-    public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> {
-            try {
-                new DictionaryApplication().runApplication();
-            } catch (Exception ex) {
-                Logger.getLogger(DictionaryApplication.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
     }
 }

@@ -21,6 +21,9 @@ public class TranslateApi extends JFrame {
     private final JLabel vi = new JLabel("<html><font face='Arial' size=\"+2\">Vietnamese</font></html>");
     private final JButton translateButton = new JButton("Translate");
 
+    /**
+     * Initialize PronunciationAPI.
+     */
     public TranslateApi() {
         super("Translate API");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -34,6 +37,9 @@ public class TranslateApi extends JFrame {
         this.setVisible(false);
     }
 
+    /**
+     * Create translate box and handle event.
+     */
     private void createTranslateBox() {
         en.setBounds(5, 10, 200, 30);
         this.add(en);
@@ -44,6 +50,9 @@ public class TranslateApi extends JFrame {
         this.add(scroll);
     }
 
+    /**
+     * Create definition box and handle event.
+     */
     private void createDefinitionBox() {
         vi.setBounds(305, 10, 200, 30);
         this.add(vi);
@@ -55,38 +64,47 @@ public class TranslateApi extends JFrame {
         this.add(scroll1);
     }
 
+    /**
+     * Create translate button and handle event.
+     */
     private void creatTranslateButton() {
         translateButton.setBounds(180, 10, 100, 30);
         translateButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String sentence = translateBox.getText();
-                definition.setText(sentenceTranslator(sentence));
+                String paragraph = translateBox.getText();
+                definition.setText(paragraphTranslator(paragraph));
             }
         });
         this.add(translateButton);
     }
 
-    private String sentenceTranslator(String sentence) {
+    /**
+     * Get translated paragraph.
+     *
+     * @param paragraph Sentence need to translate
+     * @return String
+     */
+    private String paragraphTranslator(String paragraph) {
         try {
-            if (sentence.isEmpty()) {
+            if (paragraph.isEmpty()) {
                 return "";
             }
             String link = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=vi&dt=t&q=";
             ArrayList<String> s = new ArrayList<>();
             int d = 0;
-            sentence = sentence.replaceAll("\"", "'");
-            for (int i = 0; i < sentence.length(); ++i) {
-                char c = sentence.charAt(i);
+            paragraph = paragraph.replaceAll("\"", "'");
+            for (int i = 0; i < paragraph.length(); ++i) {
+                char c = paragraph.charAt(i);
                 if (c == '.' || c == '?' || c == '!') {
-                    s.add(sentence.substring(d, i + 1).trim());
+                    s.add(paragraph.substring(d, i + 1).trim());
                     d = i + 1;
                 }
             }
-            s.add(sentence.substring(d, sentence.length()).trim());
+            s.add(paragraph.substring(d, paragraph.length()).trim());
             StringBuilder res = new StringBuilder();
             for (String a : s) {
-                if(a.isEmpty()) {
+                if (a.isEmpty()) {
                     break;
                 }
                 URL url = new URL(link + URLEncoder.encode(a, "UTF8"));
@@ -112,7 +130,10 @@ public class TranslateApi extends JFrame {
         return "";
     }
 
-    void createAudioSystem() {
+    /**
+     * Create audio button and handle event.
+     */
+    private void createAudioSystem() {
         final BufferedImage audioImg;
         final JLabel enLabel = new JLabel("EN");
         enLabel.setBounds(475, 10, 20, 30);
@@ -131,7 +152,7 @@ public class TranslateApi extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    InputStream inp = p.getAudio(translateBox.getText(),"en-uk");
+                    InputStream inp = p.getAudio(translateBox.getText(), "en-uk");
                     p.play(inp);
                 } catch (IOException | JavaLayerException ioException) {
                     ioException.printStackTrace();
@@ -151,7 +172,7 @@ public class TranslateApi extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    InputStream inp = p.getAudio(definition.getText(),"vi");
+                    InputStream inp = p.getAudio(definition.getText(), "vi");
                     p.play(inp);
                 } catch (IOException | JavaLayerException ioException) {
                     ioException.printStackTrace();
@@ -163,6 +184,9 @@ public class TranslateApi extends JFrame {
         this.pack();
     }
 
+    /**
+     * Run translator API.
+     */
     public void runTranslateApi() {
         createTranslateBox();
         createDefinitionBox();

@@ -1,78 +1,36 @@
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class DictionaryManagement {
 
-    public void insertFromCommandline(Dictionary Dic) {
-
-        Scanner sc = new Scanner(System.in);
-        int numberOfWord;
-        String target;
-        String explain;
-        Trie TrieWord = Dic.getTrieWord();
-        System.out.print("Number of word : ");
-        try {
-            numberOfWord = sc.nextInt();
-        } catch (Exception e) {
-            System.out.println("Please insert a number");
-            return;
-        }
-        sc.nextLine();
-
-        for (int i = 0; i < numberOfWord; i++) {
-
-            System.out.print("Word " + (i + 1) + " : ");
-            target = sc.nextLine().toLowerCase();
-
-            System.out.print("Explain : ");
-            explain = sc.nextLine().toLowerCase();
-
-            TrieWord.add(new Word(target, explain));
-
-        }
-    }
-
+    /**
+     * Add a word to dictionary.
+     *
+     * @param Dic     Dictionary
+     * @param target  Word target
+     * @param explain Word explain
+     */
     public void addWord(Dictionary Dic, String target, String[] explain) {
         Trie TrieWord = Dic.getTrieWord();
         StringBuilder res = new StringBuilder("<html><font size=\"+2\"><i>" + target + "</i></font>");
-        for (String line : explain){
-            res.append("<br/><ul><li><font color='#cc0000' size=\"+1\"><b>").append(line).append("</b></font></li></ul>");
+        for (String line : explain) {
+            res.append("<br/><ul><li><font color='#cc0000' size=\"+1\"><b>").append(line)
+                    .append("</b></font></li></ul>");
         }
         TrieWord.add(new Word(target, res + "</html>"));
     }
 
+    /**
+     * Insert words from file.
+     *
+     * @param Dic Dictionary
+     */
     public void insertFromFile(Dictionary Dic) {
         BufferedReader br = null;
         try {
             br = new BufferedReader(
                     new InputStreamReader(new FileInputStream("dictionaries.txt"), StandardCharsets.UTF_8));
-            Trie TrieWord = Dic.getTrieWord();
-            String textInALine;
-            String target;
-            String explain;
-            while ((textInALine = br.readLine()) != null) {
-                String[] split = textInALine.split(" : ");
-                target = split[0];
-                explain = split[1];
-                TrieWord.add(new Word(target.toLowerCase(), explain));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void insertFromFile1(Dictionary Dic) {
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream("dictionaries.txt"), StandardCharsets.UTF_8));
             Trie TrieWord = Dic.getTrieWord();
             String textInALine;
             String target = "";
@@ -81,8 +39,8 @@ public class DictionaryManagement {
                 if (textInALine.isEmpty()) {
                     continue;
                 } else {
-                    for(int i = 0; i < textInALine.length(); ++i) {
-                        if(textInALine.charAt(i) == '<') {
+                    for (int i = 0; i < textInALine.length(); ++i) {
+                        if (textInALine.charAt(i) == '<') {
                             target = textInALine.substring(0, i).trim();
                             explain = textInALine.substring(i, textInALine.length()).trim();
                             break;
@@ -102,18 +60,13 @@ public class DictionaryManagement {
         }
     }
 
-    public void dictionaryLookup(Dictionary Dic) {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Please enter the word which you want to lookup : ");
-        String WordLookup = sc.nextLine();
-        Trie T = Dic.getTrieWord().find(WordLookup);
-        if (T == null)
-            System.out.println("The word is not found!");
-        else
-            T.getWord().print();
-    }
-
+    /**
+     * Find a word.
+     *
+     * @param Dic        Dicitonary
+     * @param WordLookup Word need to find
+     * @return boolean
+     */
     public boolean dictionaryLookup(Dictionary Dic, String WordLookup) {
         Trie T = Dic.getTrieWord().find(WordLookup);
         if (T == null) {
@@ -123,44 +76,43 @@ public class DictionaryManagement {
         }
     }
 
-    public void deleteWord(Dictionary Dic) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Please enter the word which you want to delete : ");
-        String WordDelete = sc.nextLine();
-        Trie T = Dic.getTrieWord();
-        T.delete(WordDelete);
-    }
-
+    /**
+     * Remove a word.
+     *
+     * @param Dic        Dictionary
+     * @param WordDelete Word need to remove
+     */
     public void deleteWord(Dictionary Dic, String WordDelete) {
         Trie T = Dic.getTrieWord();
         T.delete(WordDelete);
     }
 
-    public void changeWord(Dictionary Dic) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Please enter the word which you want to change : ");
-        String WordChange = sc.nextLine();
-        System.out.print("Explain : ");
-        String ExplainChange = sc.nextLine();
-        Trie T = Dic.getTrieWord().find(WordChange);
-        if (T == null)
-            System.out.println("The word is not found!");
-        else
-            T.getWord().setWord_explain(ExplainChange);
-    }
-
+    /**
+     * Change a word's definition.
+     *
+     * @param Dic           Dictionary
+     * @param WordChange    Word need to fix
+     * @param ExplainChange New definition
+     */
     public void changeWord(Dictionary Dic, String WordChange, String[] ExplainChange) {
         Trie T = Dic.getTrieWord().find(WordChange);
         StringBuilder res = new StringBuilder("<html><font size=\"+2\"><i>" + WordChange + "</i></font>");
         if (T == null) {
             System.out.println("The word is not found!");
             return;
-        } else for (String line : ExplainChange){
-            res.append("<br/><ul><li><font color='#cc0000' size=\"+1\"><b>").append(line).append("</b></font></li></ul>");
-        }
+        } else
+            for (String line : ExplainChange) {
+                res.append("<br/><ul><li><font color='#cc0000' size=\"+1\"><b>").append(line)
+                        .append("</b></font></li></ul>");
+            }
         T.getWord().setWord_explain(res + "</html>");
     }
 
+    /**
+     * Export new dictionary to file.
+     *
+     * @param Dic Dictionary
+     */
     public void dictionaryExportToFile(Dictionary Dic) {
         BufferedWriter bw = null;
         try {

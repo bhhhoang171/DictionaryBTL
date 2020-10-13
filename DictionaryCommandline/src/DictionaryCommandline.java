@@ -3,6 +3,11 @@ import java.util.Scanner;
 
 public class DictionaryCommandline {
 
+    /**
+     * Show all words.
+     *
+     * @param Dic Dictionary
+     */
     public void showAllWords(Dictionary Dic) {
         ArrayList<Word> ListOfWord = Dic.getListOfWord();
         if (ListOfWord.size() == 0) {
@@ -19,6 +24,11 @@ public class DictionaryCommandline {
 
     }
 
+    /**
+     * Version 1.0: Basic dictionary.
+     *
+     * @param Dic Dictionary
+     */
     public void dictionaryBasic(Dictionary Dic) {
         System.out.print("Please choose one number from 1 to 3\n" + "   1 : insert word\n" + "   2 : show all word\n"
                 + "   3 : exit\n");
@@ -47,6 +57,11 @@ public class DictionaryCommandline {
         }
     }
 
+    /**
+     * Prefix searching.
+     *
+     * @param Dic Dictionary
+     */
     public void dictionarySearcher(Dictionary Dic) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Please enter the word which you want to searcher : ");
@@ -65,6 +80,11 @@ public class DictionaryCommandline {
         }
     }
 
+    /**
+     * Version 3.0: Advanced dictionary.
+     *
+     * @param Dic Dictionary
+     */
     public void dictionaryAdvanced(Dictionary Dic) {
         DictionaryManagement dic1 = new DictionaryManagement();
         System.out.print("Please choose one number from 1 to 9\n" + "   1 : insert word from commandline\n"

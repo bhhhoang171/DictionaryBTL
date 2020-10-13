@@ -4,14 +4,29 @@ public class Trie {
     private final Trie[] childen = new Trie[80];
     private Word word;
 
+    /**
+     * Set word.
+     *
+     * @param _word Word
+     */
     public void setWord(Word _word) {
         word = new Word(_word);
     }
 
+    /**
+     * Get word.
+     *
+     * @return Word
+     */
     public Word getWord() {
         return word;
     }
 
+    /**
+     * Add a word to Trie.
+     *
+     * @param AddWord Word
+     */
     public void add(Word AddWord) {
         Trie p = this;
         int k;
@@ -70,9 +85,9 @@ public class Trie {
                     k = 77;
                     break;
                 default:
-                    if(target.charAt(i) >= 'A' && target.charAt(i) <= 'Z') {
+                    if (target.charAt(i) >= 'A' && target.charAt(i) <= 'Z') {
                         k = (int) target.charAt(i) - 'A' + 16;
-                    } else if(target.charAt(i) >= 'a' && target.charAt(i) <= 'z') {
+                    } else if (target.charAt(i) >= 'a' && target.charAt(i) <= 'z') {
                         k = (int) target.charAt(i) - 'a' + 42;
                     } else {
                         k = (int) target.charAt(i) - '0' + 6;
@@ -87,6 +102,12 @@ public class Trie {
         p.word = new Word(AddWord);
     }
 
+    /**
+     * Find a word in trie.
+     *
+     * @param target Word target
+     * @return Trie
+     */
     public Trie find(String target) {
         if (!checkWordInput(target)) {
             return null;
@@ -144,9 +165,9 @@ public class Trie {
                     k = 77;
                     break;
                 default:
-                    if(target.charAt(i) >= 'A' && target.charAt(i) <= 'Z') {
+                    if (target.charAt(i) >= 'A' && target.charAt(i) <= 'Z') {
                         k = (int) target.charAt(i) - 'A' + 16;
-                    } else if(target.charAt(i) >= 'a' && target.charAt(i) <= 'z') {
+                    } else if (target.charAt(i) >= 'a' && target.charAt(i) <= 'z') {
                         k = (int) target.charAt(i) - 'a' + 42;
                     } else {
                         k = (int) target.charAt(i) - '0' + 6;
@@ -161,6 +182,11 @@ public class Trie {
         return p;
     }
 
+    /**
+     * Delete a word from trie.
+     *
+     * @param target Word target
+     */
     public void delete(String target) {
         if (!checkWordInput(target)) {
             return;
@@ -218,9 +244,9 @@ public class Trie {
                     k = 77;
                     break;
                 default:
-                    if(target.charAt(i) >= 'A' && target.charAt(i) <= 'Z') {
+                    if (target.charAt(i) >= 'A' && target.charAt(i) <= 'Z') {
                         k = (int) target.charAt(i) - 'A' + 16;
-                    } else if(target.charAt(i) >= 'a' && target.charAt(i) <= 'z') {
+                    } else if (target.charAt(i) >= 'a' && target.charAt(i) <= 'z') {
                         k = (int) target.charAt(i) - 'a' + 42;
                     } else {
                         k = (int) target.charAt(i) - '0' + 6;
@@ -235,12 +261,23 @@ public class Trie {
         p.word = null;
     }
 
+    /**
+     * Create list of words from trie.
+     *
+     * @return ArrayList<Word>
+     */
     public ArrayList<Word> getListOfWord() {
         ArrayList<Word> listOfWord = new ArrayList<>();
         listed(this, listOfWord);
         return listOfWord;
     }
 
+    /**
+     * List word.
+     *
+     * @param T          Trie
+     * @param listOfWord ArrayList of word
+     */
     private void listed(Trie T, ArrayList<Word> listOfWord) {
         if (T.word != null) {
             listOfWord.add(T.word);
@@ -252,6 +289,12 @@ public class Trie {
         }
     }
 
+    /**
+     * Check format of word and ignore all special symbols.
+     *
+     * @param input Word input
+     * @return boolean
+     */
     private boolean checkWordInput(String input) {
         input = input.trim();
         for (int i = 0; i < input.length(); ++i) {
@@ -260,7 +303,7 @@ public class Trie {
                 continue;
             } else if (a >= 'A' && a <= 'Z') {
                 continue;
-            } else if (a >= '0' && a <= '9'){
+            } else if (a >= '0' && a <= '9') {
                 continue;
             } else if (a == ' ' || a == '.' || a == '-' || a == '\'' || a == '(' || a == ')') {
                 continue;
