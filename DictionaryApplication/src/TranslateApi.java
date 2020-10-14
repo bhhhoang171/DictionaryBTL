@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class TranslateApi extends JFrame {
     private JTextPane translateBox;
-    private JEditorPane definition;
+    private JTextPane definition;
     private final JLabel en = new JLabel("<html><font face='Arial' size=\"+2\">English</font></html>");
     private final JLabel vi = new JLabel("<html><font face='Arial' size=\"+2\">Vietnamese</font></html>");
     private final JButton translateButton = new JButton("Translate");
@@ -56,7 +56,7 @@ public class TranslateApi extends JFrame {
     private void createDefinitionBox() {
         vi.setBounds(305, 10, 200, 30);
         this.add(vi);
-        definition = new JEditorPane();
+        definition = new JTextPane();
         definition.setEditable(false);
         definition.setFont(new java.awt.Font("Arial", Font.PLAIN, 16));
         JScrollPane scroll1 = new JScrollPane(definition);
@@ -67,7 +67,7 @@ public class TranslateApi extends JFrame {
     /**
      * Create translate button and handle event.
      */
-    private void creatTranslateButton() {
+    private void createTranslateButton() {
         translateButton.setBounds(180, 10, 100, 30);
         translateButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -82,7 +82,7 @@ public class TranslateApi extends JFrame {
     /**
      * Get translated paragraph.
      *
-     * @param paragraph Sentence need to translate
+     * @param paragraph Paragraph need to translate
      * @return String
      */
     private String paragraphTranslator(String paragraph) {
@@ -94,6 +94,7 @@ public class TranslateApi extends JFrame {
             ArrayList<String> s = new ArrayList<>();
             int d = 0;
             paragraph = paragraph.replaceAll("\"", "'");
+            paragraph = paragraph.replaceAll("\\s+", " ");
             for (int i = 0; i < paragraph.length(); ++i) {
                 char c = paragraph.charAt(i);
                 if (c == '.' || c == '?' || c == '!') {
@@ -123,7 +124,7 @@ public class TranslateApi extends JFrame {
                 }
                 res.append(" ").append(b);
             }
-            return res.toString();
+            return res.toString().replaceAll("æ", "\n");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
         }
@@ -190,7 +191,7 @@ public class TranslateApi extends JFrame {
     public void runTranslateApi() {
         createTranslateBox();
         createDefinitionBox();
-        creatTranslateButton();
+        createTranslateButton();
         createAudioSystem();
         this.setVisible(true);
     }
