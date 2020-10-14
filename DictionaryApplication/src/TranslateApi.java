@@ -124,7 +124,6 @@ public class TranslateApi extends JFrame {
                 }
                 res.append(" ").append(b);
             }
-            return res.toString().replaceAll("æ", "\n");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
         }
