@@ -34,7 +34,7 @@ public class DictionaryApplication extends JFrame {
      */
     public DictionaryApplication() {
         super("Dictionary");
-        final Image icon = Toolkit.getDefaultToolkit().getImage("icon\\dict_icon.png");
+        final Image icon = Toolkit.getDefaultToolkit().getImage(".\\icon\\dict_icon.png");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(null);
         this.setPreferredSize(new Dimension(1200, 900));
@@ -65,6 +65,23 @@ public class DictionaryApplication extends JFrame {
         SearchingBox.setBounds(0, 30, 380, 35);
         SearchingBox.setFont(font);
         Search.setBounds(10, 3, 100, 25);
+        SearchingBox.setText("Enter word here");
+        SearchingBox.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                String s = SearchingBox.getText();
+                if (s.equals("Enter word here")) {
+                    SearchingBox.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (SearchingBox.getText().isEmpty()) {
+                    SearchingBox.setText("Enter word here");
+                }
+            }
+        });
         this.add(SearchingBox);
     }
 
@@ -76,7 +93,7 @@ public class DictionaryApplication extends JFrame {
         this.add(Result);
         final BufferedImage img;
         try {
-            img = ImageIO.read(new File("icon\\search.png"));
+            img = ImageIO.read(new File(".\\icon\\search.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
@@ -179,7 +196,7 @@ public class DictionaryApplication extends JFrame {
     private void createAddButton() {
         final BufferedImage img;
         try {
-            img = ImageIO.read(new File("icon\\add.png"));
+            img = ImageIO.read(new File(".\\icon\\add.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
@@ -280,7 +297,7 @@ public class DictionaryApplication extends JFrame {
     private void createDeleteButton() {
         final BufferedImage img;
         try {
-            img = ImageIO.read(new File("icon\\delete.png"));
+            img = ImageIO.read(new File(".\\icon\\delete.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
@@ -318,7 +335,7 @@ public class DictionaryApplication extends JFrame {
     private void createEditButton() {
         final BufferedImage img;
         try {
-            img = ImageIO.read(new File("icon\\edit.png"));
+            img = ImageIO.read(new File(".\\icon\\edit.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
@@ -395,7 +412,7 @@ public class DictionaryApplication extends JFrame {
     private void createInfoButton() {
         final BufferedImage img;
         try {
-            img = ImageIO.read(new File("icon\\info.png"));
+            img = ImageIO.read(new File(".\\icon\\info.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
@@ -459,7 +476,7 @@ public class DictionaryApplication extends JFrame {
         this.add(showLabel);
         final BufferedImage img;
         try {
-            img = ImageIO.read(new File("icon\\show.png"));
+            img = ImageIO.read(new File(".\\icon\\show.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
@@ -494,7 +511,7 @@ public class DictionaryApplication extends JFrame {
         this.add(exportLabel);
         final BufferedImage img;
         try {
-            img = ImageIO.read(new File("icon\\export.png"));
+            img = ImageIO.read(new File(".\\icon\\export.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
@@ -524,7 +541,7 @@ public class DictionaryApplication extends JFrame {
         final JLabel UKlabel = new JLabel("<html><font face='Arial' size=\"+1\">UK</font></html>");
         UKlabel.setBounds(1125, 120, 50, 30);
         try {
-            audioImg = ImageIO.read(new File("icon\\audio.png"));
+            audioImg = ImageIO.read(new File(".\\icon\\audio.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;
@@ -574,7 +591,7 @@ public class DictionaryApplication extends JFrame {
     private void createTranslateButton() {
         final BufferedImage img;
         try {
-            img = ImageIO.read(new File("icon\\translateapi.png"));
+            img = ImageIO.read(new File(".\\icon\\translateapi.png"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, e);
             return;

@@ -30,7 +30,7 @@ public class DictionaryManagement {
         BufferedReader br = null;
         try {
             br = new BufferedReader(
-                    new InputStreamReader(new FileInputStream("dictionaries.txt"), StandardCharsets.UTF_8));
+                    new InputStreamReader(new FileInputStream(".\\dictionaries.txt"), StandardCharsets.UTF_8));
             Trie TrieWord = Dic.getTrieWord();
             String textInALine;
             String target = "";
