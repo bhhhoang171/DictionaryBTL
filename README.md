@@ -1,7 +1,7 @@
 # Dictionary
 
  A simple English - Vietnamese dictionary built on [JAVA SE 8](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html).
- [Demo](https://github.com/bhhhoang171/DictionaryBTL/blob/master/demo.png)
+ ![Demo](https://github.com/bhhhoang171/DictionaryBTL/blob/master/demo.png)
 
 ## Installation
 
